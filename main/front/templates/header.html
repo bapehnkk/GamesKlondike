@@ -30,15 +30,17 @@
             <a href="/" class="allert">
                 <img src="{%static 'img/no-image.png'%}" alt="" class="allert__img">
                 <div class="allert__content">
-                    <div class="allert__text">Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты.</div>
-                    <div class="allert__time">{{allert}} minutes ago</div>
+                    <div class="allert__text">{{allert.text}}</div>
+                    <div class="allert__time">{{allert.time}}</div>
                 </div>
             </a>
             {% endfor %}
 
         </div>
         <div class="column__item user"><i class="fa-light fa-user"></i></div>
+
         <div class="column__user none">
+            {% if request.user.is_authenticated %}
             <a href="/" class="title">
                 <img src="{%static 'img/no-image.png'%}" alt="">
                 <div class="username">Username</div>
@@ -52,6 +54,18 @@
                 <i class="fa-solid fa-arrow-right-from-bracket"></i>
                 <div class="text">Logout</div>
             </a>
+            {% else %}
+
+            <a href="/" class="row">
+                <i class="fa-light fa-user-check"></i>
+                <div class="text">Login</div>
+            </a>
+            <a href="/" class="row">
+                <i class="fa-light fa-user-plus"></i>
+                <div class="text">Register</div>
+            </a>
+
+            {%endif%}
             <div class="line"></div>
             <a href="/" class="row">
                 <i class="fa-solid fa-gear"></i>
@@ -65,23 +79,42 @@
                 <i class="fa-solid fa-earth-europa"></i>
                 <div class="text">Language</div>
             </a>
+            <a href="/" class="row">
+                <i class="fa-light fa-circle-question"></i>
+                <div class="text">Support</div>
+            </a>
 
         </div>
     </div>
     <div class="menu hide none">
-        <div class="menu__title">Navigation</div>
-        <a href="/" class="menu__link">Home</a>
-        <a href="/" class="menu__link">Allerts</a>
-        <a href="/" class="menu__link">Profile</a>
-        <div class="menu__title">Playlists</div>
-        <div class="playlists">
-            {% for allert in allerts %}
-            <a href="/" class="menu__link">...</a> {% endfor %}
+        <a href="/" class="row">
+            <i class="fa-solid fa-arrow-trend-up"></i>
+            <div class="text">Trends</div>
+        </a>
+        <a href="/" class="row">
+            <i class="fa-solid fa-fire"></i>
+            <div class="text">Popular</div>
+        </a>
+        <div class="line"></div>
+        <a href="/" class="row">
+            <i class="fa-light fa-block-quote"></i>
+            <div class="text">Subscriptions</div>
+        </a>
+        <a href="/" class="row">
+            <i class="fa-light fa-clock-rotate-left"></i>
+            <div class="text">History</div>
+        </a>
+        <a href="/" class="row">
+            <i class="fa-light fa-bookmark"></i>
+            <div class="text">Bookmarks</div>
+        </a>
+        <a href="/" class="row">
+            <i class="fa-light fa-circle-question"></i>
+            <div class="text">Support</div>
+        </a>
 
-        </div>
         <i class="fa-light fa-xmark menu__cross"></i>
     </div>
 
     <div class="window none"></div>
 </header>
-<script src="{%static 'js/header.js'%}"></script>

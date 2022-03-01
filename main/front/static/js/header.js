@@ -68,3 +68,15 @@ document.querySelector('.column__item.bell').addEventListener('click', (event) =
 document.querySelector('.column__item.user').addEventListener('click', (event) => {
     document.querySelector('.column__user').classList.toggle('none');
 });
+
+//all
+
+document.querySelector('.main').addEventListener('click', (event) => {
+    document.querySelector('.column__bell').classList.add('none');
+    document.querySelector('.column__user').classList.add('none');
+
+    document.querySelector('.header .menu').classList.add('hide');
+    setTimeout(() => {
+        document.querySelector('.header .menu').classList.add('none');
+    }, 100);
+});

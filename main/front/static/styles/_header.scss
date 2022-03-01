@@ -23,6 +23,7 @@
         &__item {
             margin: 0 1em;
             transition: all 0.6s ease 0s;
+            cursor: pointer;
             &.burger,
             &.user,
             &.bell,
@@ -66,6 +67,9 @@
             height: 20em;
             width: 20em;
             overflow: auto;
+            @media (max-width: 767px) {
+                right: 1em;
+            }
             .title {
                 font-size: 1.1em;
                 padding: 0.3em;
@@ -94,8 +98,8 @@
                     filter: contrast(110%);
                 }
                 &__img {
-                    max-width: 20%;
-                    max-height: 50%;
+                    width: 3em;
+                    height: 3em;
                     border-radius: 50%;
                 }
                 &__content {
@@ -108,9 +112,12 @@
                 }
                 &__text {
                     margin-bottom: .3em;
+                    max-width: 15em;
+                    word-wrap: break-word;
+                    font-size: 1.2em;
                 }
                 &__time {
-                    font-size: 0.7em;
+                    font-size: 1em;
                 }
             }
         }
@@ -143,6 +150,7 @@
                 align-items: center;
                 transition: all 0.3s ease 0s;
                 width: 2em;
+                cursor: pointer;
             }
             i:hover {
                 background-color: $dark2;
@@ -202,27 +210,14 @@
         &__logo {
             display: block;
             width: 2em;
-            overflow: hidden;
             height: 2em;
+            overflow: hidden;
             margin-left: -1.5em;
-            animation-name: rotation;
-            animation-delay: 2s;
-            animation-duration: 25s;
-            animation-timing-function: linear;
-            animation-iteration-count: infinite;
             &:hover {
                 animation-play-state: paused;
             }
             img {
                 max-width: 100%;
-            }
-            @keyframes rotation {
-                0% {
-                    transform: rotate(0deg);
-                }
-                100% {
-                    transform: rotate(360deg);
-                }
             }
         }
         &__user {
@@ -280,13 +275,12 @@
                     }
                 }
             }
-            .line {
-                display: flex;
-                width: 100%;
-                height: 1px;
-                margin-top: 1px;
-                margin-bottom: 1px;
+            .line::after {
+                content: '';
                 background-color: $text;
+                display: block;
+                width: 100%;
+                height: 1px !important;
             }
         }
     }
@@ -319,46 +313,71 @@
     .menu {
         position: fixed;
         z-index: 10;
-        width: 100%;
+        width: 15em;
         height: 100%;
         display: flex;
         align-items: center;
         flex-direction: column;
-        top: 0;
+        top: 3em;
         left: 0;
         background: $dark3;
         overflow: auto;
-        padding: 1em;
+        padding-top: 1em;
         transition: all 0.3s ease 0s;
-        .menu__link {
-            color: $text;
+        overflow: auto;
+        .row {
+            width: 100%;
             display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 2em;
-            background: $dark2;
-            border-radius: .1em;
-            -webkit-box-shadow: -17px 33px 75px -30px rgba(189, 201, 217, 0.09);
-            -moz-box-shadow: -17px 33px 75px -30px rgba(189, 201, 217, 0.09);
-            box-shadow: -17px 33px 75px -30px rgba(189, 201, 217, 0.09);
-            padding: .25em .5em;
-            margin: 0.3em;
+            flex-direction: row;
+            padding: 1em;
             transition: all 0.3s ease 0s;
-            min-width: 20em;
-            filter: contrast(90%);
-            &:hover {
-                color: $red;
-                background: $dark3;
-                filter: contrast(110%);
+            .text,
+            i {
+                transition: all 0.3s ease 0s;
+                color: $text;
             }
-            &:active {
-                filter: contrast(100%);
+            i {
+                margin-right: 1em;
+            }
+            &::after {
+                content: '';
+                position: absolute;
+                margin-top: 1.2em;
+                background-color: $text;
+                display: block;
+                width: 100%;
+                height: 1px !important;
+                opacity: 0;
+                transition: all 0.3s ease 0s;
+            }
+            &:hover {
+                .text,
+                i {
+                    transform: scale(1.1);
+                    color: $red;
+                }
+                &::after {
+                    opacity: 1;
+                }
+            }
+        }
+        .line {
+            display: block;
+            width: 100%;
+            height: 1px !important;
+            &::after {
+                content: '';
+                background-color: $text;
+                display: block;
+                width: 100%;
+                height: 1px !important;
             }
         }
         &__cross {
-            position: fixed;
+            display: none;
+            position: absolute;
             right: 1em;
-            top: 1em;
+            top: .5em;
             font-size: 2em;
             transition: all 0.3s ease 0s;
             cursor: pointer;
@@ -373,17 +392,14 @@
         &.hide {
             transform: translate(-100vw, 0px);
         }
-        &__title {
-            width: 70%;
-            font-size: 4em;
-        }
-        .playlists {
-            .menu__link {
-                margin-left: 1em;
-            }
-        }
         @media (max-width: 767px) {
+            & {
+                width: 100%;
+                height: 100%;
+                top: 0;
+            }
             &__cross {
+                display: block;
                 top: .5em;
             }
             .menu__title {
