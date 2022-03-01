@@ -1,0 +1,44 @@
+// Color Palette
+$dark3: #202225;
+$dark2: #2C2F33;
+$dark1: #23272A;
+$red: #FF3727;
+$redLight: #FF5043;
+$light4: #717171;
+$light3: #99AAB5;
+$light2: #F6F6F6;
+$light1: #FFFFFF;
+$text: #ABB2BF;
+@import "_zeroing";
+* {
+    // Custom scroll
+    &::-webkit-scrollbar {
+        width: 10px;
+        transition: all 0.3s ease 0s;
+    }
+    &::-webkit-scrollbar-track {
+        -webkit-box-shadow: 5px 5px 5px -5px rgba(34, 60, 80, 0.2) inset;
+        // background-color: $text;
+        // border-radius: 10px;
+        transition: all 0.3s ease 0s;
+    }
+    &::-webkit-scrollbar-thumb {
+        // border-radius: 10px;
+        background: linear-gradient(180deg, $light4, $light4, $light2);
+        transition: all 0.3s ease 0s;
+        &:hover {
+            background: linear-gradient(180deg, $red, $light1);
+        }
+    }
+}
+
+.wrapper {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: $dark2
+}
+
+@import "_header";
+@import "_main";
+@import "_footer";
