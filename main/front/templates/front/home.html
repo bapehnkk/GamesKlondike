@@ -4,35 +4,109 @@
 <div class="main">
     <div class="views-switch-list">
         <div class="row-btn"><i class="fa-light fa-list"></i></div>
-        <div class="collumn-btn"><i class="fa-light fa-table-cells"></i></div>
+        <div class="collumn-btn active"><i class="fa-light fa-table-cells"></i></div>
     </div>
-    <div class="cards-container row">
+    <div class="cards-container">
         {% for card in cards %}
         <div class="card">
             <a href="{{card.link}}" class="card__img">
                 <img src="{%static 'img/waha.jpg'%}" alt="">
             </a>
-            
             <div class="card__content">
                 <div class="card__line after">
                     <a href="{{card.link}}" class="card__title">{{card.title}}</a>
                     <div class="card__text">{{card.text}}</div>
                 </div>
                 <div class="card__line none">
-                <div class="card__tags">
-                    {% for tag in card.tags %}
-                    <a href="{{tag.link}}" class="card__tag">{{tag.text}}</a>
-                    {%endfor%}
+                    <div class="card__tags">
+                        {% for tag in card.tags %}
+                        <a href="{{tag.link}}" class="card__tag">{{tag.text}}</a> {%endfor%}
+                    </div>
+                    <div class="card__date">{{card.date}}</div>
                 </div>
-                <div class="card__date">{{card.date}}</div></div>
             </div>
         </div>
-    
+
         {%endfor%}
-
     </div>
-
-
+    <div class="cookie-message">
+        <div class="cookie-message__text">We are used cookie</div>
+        <div class="cookie-message__btns">
+            <div class="btn yes">I agree</div>
+            <div class="btn no">I do not agree</div>
+        </div>
+    </div>
 </div>
+
+<script>
+    // change views switch list 
+    let agreeCookieBool = false;
+    document.querySelector('.row-btn').addEventListener('click', (event) => {
+        document.querySelector('.collumn-btn').classList.remove('active');
+        document.querySelector('.row-btn').classList.add('active');
+        document.querySelector('.cards-container').classList.add('row');
+        if (agreeCookieBool)
+            setCookie("viewsSwitchList", "row", 30);
+    });
+    document.querySelector('.collumn-btn').addEventListener('click', (event) => {
+        document.querySelector('.row-btn').classList.remove('active');
+        document.querySelector('.collumn-btn').classList.add('active');
+        document.querySelector('.cards-container').classList.remove('row');
+        if (agreeCookieBool)
+            setCookie("viewsSwitchList", "column", 30);
+    });
+
+    // Set cokie row/column
+    function setCookie(cname, cvalue, exdays) {
+        const d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        let expires = "expires=" + d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+
+    function getCookie(cname) {
+        let name = cname + "=";
+        let decodedCookie = decodeURIComponent(document.cookie);
+        let ca = decodedCookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+
+    function agreeCookie() {
+        if (getCookie("viewsSwitchList") == "row") {
+            document.querySelector('.collumn-btn').classList.remove('active');
+            document.querySelector('.row-btn').classList.add('active');
+            document.querySelector('.cards-container').classList.add('row');
+
+        } else {
+            document.querySelector('.row-btn').classList.remove('active');
+            document.querySelector('.collumn-btn').classList.add('active');
+            document.querySelector('.cards-container').classList.remove('row');
+            viewsSwitchList = "column";
+            setCookie("viewsSwitchList", "column", 30);
+        }
+        setCookie("agreeCookie", "agree", 30);
+    }
+    if (getCookie("agreeCookie") == "agree") {
+        agreeCookie();
+        document.querySelector('.cookie-message').classList.add('none');
+    }
+
+    document.querySelector('.btn.yes').addEventListener('click', () => {
+        agreeCookie();
+        document.querySelector('.cookie-message').classList.add('none');
+    });
+    document.querySelector('.btn.no').addEventListener('click', () => {
+        document.querySelector('.cookie-message').classList.add('none');
+    });
+</script>
 {% endblock %} {% block footer %}{% endblock %} {% block addictionsAfter %}
 <script src="{%static 'js/header.js'%}"></script>{% endblock %}

@@ -8,8 +8,32 @@
     background: #1E2227;
     .views-switch-list {
         color: $text;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        font-size: 2em;
+        padding: 1em;
+        .row-btn,
+        .collumn-btn {
+            margin: .5em;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: all 0.3s ease 0s;
+            &:hover {
+                color: $red;
+            }
+            &.active {
+                color: $redLight;
+                filter: brightness(50%);
+                &:hover {
+                    color: $red;
+                    filter: brightness(100%);
+                }
+            }
+        }
     }
-    .cards-container{
+    .cards-container {
         width: 100%;
         display: flex;
         font-display: row;
@@ -26,8 +50,8 @@
             transition: all 0.6s ease 0s;
             border-radius: .1em;
             &:hover {
-                filter: brightness(100%);              
-            }   
+                filter: brightness(100%);
+            }
             &__img {
                 width: 100%;
                 display: flex;
@@ -35,7 +59,7 @@
                 justify-content: center;
                 flex-direction: column;
                 margin-bottom: 1em;
-                &::after{
+                &::after {
                     content: '';
                     width: 100%;
                     background: $text;
@@ -50,28 +74,29 @@
                 padding: .5em;
                 font-size: 1.5em;
             }
-            &__title, &__text, &__date, &__tags {
+            &__title,
+            &__text,
+            &__date,
+            &__tags {
                 display: block;
                 word-wrap: break-word;
                 color: $text;
                 margin-bottom: 1em;
                 width: 100%;
-                
             }
-
-            &__title, &__tag     {
+            &__title,
+            &__tag {
                 color: $redLight;
                 transition: all 0.6s ease 0s;
                 &:hover {
-                    color: $red;     
-                    filter: contrast(300%);            
+                    color: $red;
+                    filter: contrast(300%);
                 }
             }
             &__tags {
                 display: flex;
                 flex-direction: row;
                 justify-content: flex-start;
-                
             }
             &__tag {
                 margin: 0.3em;
@@ -79,7 +104,6 @@
                 &::before {
                     content: '#';
                 }
-
             }
             &__line {
                 display: flex;
@@ -87,7 +111,7 @@
                 justify-items: center;
                 flex-direction: column;
                 margin-bottom: 1em;
-                &::after{
+                &::after {
                     content: '';
                     width: 100%;
                     background: $text;
@@ -103,16 +127,13 @@
                 display: flex;
                 justify-content: right;
             }
-            
             @media (max-width: 1000px) {
                 & {
                     width: 45%;
                 }
             }
-            
             @media (max-width: 767px) {
                 & {
-
                     width: 90%;
                 }
             }
@@ -129,13 +150,81 @@
                         display: none;
                     }
                 }
-                &__content{
+                &__content {
                     width: 50%;
                     height: 100%;
                     display: flex;
                     flex-direction: column;
                     justify-content: space-between;
-                }   
+                }
+            }
+        }
+    }
+    .cookie-message {
+        width: 100%;
+        height: 10em;
+        position: fixed;
+        left: 0;
+        bottom: -20em;
+        background: $dark2;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        font-size: 4em;
+        &.none {
+            display: none !important;
+        }
+        &__text {
+            font-size: 2em;
+        }
+        &__btns {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: row;
+            .btn {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 0.5em;
+                width: 10em;
+                background-color: $dark3;
+                border-radius: .3em;
+                margin: 0.3em;
+                transition: all 0.3s ease 0s;
+                cursor: pointer;
+                &:hover {
+                    transform: scale(1.1);
+                    color: $red;
+                }
+                &:active {
+                    transform: scale(1.05);
+                    color: $redLight;
+                }
+            }
+        }
+        @media (max-width: 1000px) {
+            & {
+                font-size: 2em;
+            }
+        }
+        @media (max-width: 767px) {
+            & {
+                font-size: 1em;
+            }
+        }
+        animation-name: showCookie;
+        animation-timing-function: ease-out;
+        animation-duration: 2s;
+        animation-delay: .3s;
+        animation-fill-mode: forwards;
+        @keyframes showCookie {
+            0% {
+                bottom: -20em;
+            }
+            100% {
+                bottom: 0;
             }
         }
     }
