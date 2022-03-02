@@ -2,19 +2,33 @@ from django.shortcuts import render
 
 
 def home(request):
-    allerts = []
+    alerts = []
     playlists = []
+    cards = []
     for n in range(20):
-        allerts.append({
+        alerts.append({
             'text': 'Lorem'*50,
             'time': str((n+1)*2)+'min ago'
         })
         playlists.append({
             'text': n,
         })
+        cards.append({
+            'title': 'Title'+str(n+1),
+            'link': '/',
+            'text': ('Text'+str(n+1))*100,
+            'date': 'date'+str(n+1),
+            'tags': [{
+                'link': '/',
+                'text': 'tag'+str(n+1),
+            },
+            {'link': '/','text': 'tag'+str(n+1),}
+            ],
+        })
     dict = {
-        'allerts': allerts,
+        'alerts': alerts,
         'playlists': playlists,
+        'cards': cards,
 
     }
     return render(request, 'front/home.html', dict)

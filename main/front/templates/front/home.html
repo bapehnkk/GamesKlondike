@@ -2,11 +2,35 @@
 <link rel="stylesheet" href="{% static 'icons.css' %}">
 <link rel="stylesheet" href="{% static 'main.css' %}"> {% endblock %} {% block header %}{%include 'header.html'%}{% endblock %} {% block main %}
 <div class="main">
-    <div class="title">
-        Title
+    <div class="views-switch-list">
+        <div class="row-btn"><i class="fa-light fa-list"></i></div>
+        <div class="collumn-btn"><i class="fa-light fa-table-cells"></i></div>
+    </div>
+    <div class="cards-container row">
+        {% for card in cards %}
+        <div class="card">
+            <a href="{{card.link}}" class="card__img">
+                <img src="{%static 'img/waha.jpg'%}" alt="">
+            </a>
+            
+            <div class="card__content">
+                <div class="card__line after">
+                    <a href="{{card.link}}" class="card__title">{{card.title}}</a>
+                    <div class="card__text">{{card.text}}</div>
+                </div>
+                <div class="card__line none">
+                <div class="card__tags">
+                    {% for tag in card.tags %}
+                    <a href="{{tag.link}}" class="card__tag">{{tag.text}}</a>
+                    {%endfor%}
+                </div>
+                <div class="card__date">{{card.date}}</div></div>
+            </div>
+        </div>
+    
+        {%endfor%}
 
     </div>
-
 
 
 </div>
