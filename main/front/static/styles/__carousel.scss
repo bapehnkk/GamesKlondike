@@ -1,0 +1,91 @@
+.carousel-wrapper {
+    overflow: hidden;
+    width: 90%;
+    margin: auto;
+    * {
+        box-sizing: border-box;
+    }
+    .carousel {
+        -webkit-transform-style: preserve-3d;
+        -moz-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+        &__photo {
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            width: 100%;
+            margin: auto;
+            padding: 1rem 4rem;
+            z-index: 100;
+            transition: transform .5s, opacity .5s, z-index .5s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            img {
+                max-width: 100%;
+                filter: brightness(90%);
+                transition: all 0.3s ease 0s;
+                &:hover {
+                    filter: brightness(100%);
+                }
+            }
+            &.initial,
+            &.active {
+                opacity: 1;
+                position: relative;
+                z-index: 900;
+            }
+            &.prev,
+            &.next {
+                z-index: 800;
+            }
+            &.prev {
+                transform: translateX(-100%);
+            }
+            &.next {
+                transform: translateX(100%);
+            }
+        }
+        &__button {
+            &--prev,
+            &--next {
+                position: absolute;
+                top: 50%;
+                width: 3rem;
+                height: 3rem;
+                background-color: $text;
+                transform: translateY(-50%);
+                border-radius: 50%;
+                cursor: pointer;
+                z-index: 1001;
+                border: 1px solid $dark3;
+                &::after {
+                    content: " ";
+                    position: absolute;
+                    width: 10px;
+                    height: 10px;
+                    top: 50%;
+                    left: 54%;
+                    border-right: 2px solid $dark3;
+                    border-bottom: 2px solid $dark3;
+                    transform: translate(-50%, -50%) rotate(135deg);
+                }
+                transition: all 0.3s ease 0s;
+                &:hover {
+                    background-color: $redLight;
+                    opacity: .9;
+                }
+            }
+            &--prev {
+                left: 0;
+            }
+            &--next {
+                right: 0;
+                &::after {
+                    left: 47%;
+                    transform: translate(-50%, -50%) rotate(-45deg);
+                }
+            }
+        }
+    }
+}

@@ -96,6 +96,7 @@
         setCookie("agreeCookie", "agree", 30);
     }
     if (getCookie("agreeCookie") == "agree") {
+        agreeCookieBool = true;
         agreeCookie();
         document.querySelector('.cookie-message').classList.add('none');
     }
@@ -108,5 +109,5 @@
         document.querySelector('.cookie-message').classList.add('none');
     });
 </script>
-{% endblock %} {% block footer %}{% endblock %} {% block addictionsAfter %}
+{% endblock %} {% block footer %}{%include 'footer.html'%}{% endblock %} {% block addictionsAfter %}
 <script src="{%static 'js/header.js'%}"></script>{% endblock %}

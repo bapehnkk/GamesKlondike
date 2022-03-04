@@ -84,6 +84,9 @@
                 margin-bottom: 1em;
                 width: 100%;
             }
+            &__date {
+                text-decoration: underline;
+            }
             &__title,
             &__tag {
                 color: $redLight;
@@ -126,6 +129,7 @@
             &__date {
                 display: flex;
                 justify-content: right;
+                text-decoration: underline;
             }
             @media (max-width: 1000px) {
                 & {
@@ -225,6 +229,289 @@
             }
             100% {
                 bottom: 0;
+            }
+        }
+    }
+    .post {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        * {
+            color: $text;
+        }
+        &__title,
+        &__text,
+        &__publisher,
+        &__likes,
+        &__release {
+            width: 90%;
+            font-size: 1.5em;
+        }
+        &__release {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 1em;
+            &-title,
+            &-date {
+                text-decoration: underline;
+            }
+            &-title {
+                font-size: 2em;
+                transition: all 0.3s ease 0s;
+                color: $redLight;
+                &:hover {
+                    color: $red;
+                }
+            }
+        }
+        &__link {
+            display: flex;
+            flex-direction: column;
+            font-size: 2em;
+            width: 90%;
+            margin-bottom: 1em;
+            &-title,
+            &-link {
+                transition: all .3s ease 0s;
+                margin-right: 0.7em;
+                padding: 0.1em;
+                padding-left: 0;
+                &:hover {
+                    color: $red;
+                }
+            }
+            &-all {
+                display: flex;
+                flex-wrap: wrap;
+            }
+            &-title {
+                color: $redLight;
+                font-size: 1.5em;
+            }
+        }
+        &__publisher {
+            flex-direction: column;
+        }
+        &__pub-title {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            transition: all 0.3s ease 0s;
+            &::after {
+                content: '';
+                width: 100%;
+                background-color: $text;
+                height: .05em;
+                margin-top: .3em;
+                transition: all 0.3s ease 0s;
+                margin-bottom: .5em;
+            }
+            &:hover {
+                color: $redLight;
+                &::after {
+                    background-color: $redLight;
+                }
+            }
+            &:active {
+                color: $red;
+                &::after {
+                    background-color: $red;
+                }
+            }
+        }
+        &__pub-title,
+        &__pub-date,
+        &__pub-user,
+        &__likes {
+            margin-bottom: .3em;
+            display: flex;
+            justify-content: flex-end;
+        }
+        &__pub-date {
+            text-decoration: underline;
+        }
+        &__tags {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            width: 90%;
+            margin-bottom: 1em;
+        }
+        &__tag {
+            color: $redLight;
+            transition: all 0.6s ease 0s;
+            padding: 0.5em;
+            padding-left: 0;
+            display: block;
+            font-size: 1.2em;
+            &::before {
+                content: '#';
+            }
+            &:hover {
+                color: $red;
+                filter: contrast(300%);
+            }
+        }
+        &__likes {
+            justify-content: flex-start;
+            align-items: center;
+            .likes,
+            .dislikes {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 0.7em;
+                input {
+                    display: none;
+                }
+                i {
+                    margin-right: 0.3em;
+                }
+                .count,
+                i {
+                    transition: all 0.3s ease 0s;
+                    cursor: pointer;
+                    user-select: none;
+                }
+                transition: all 0.3s ease 0s;
+                &:hover {
+                    .count,
+                    i {
+                        color: $red;
+                        filter: contrast(50%);
+                    }
+                }
+                &:active {
+                    .count,
+                    i {
+                        filter: contrast(100%);
+                        transform: scale(.9);
+                    }
+                }
+                &.active {
+                    .count,
+                    i {
+                        color: $redLight;
+                    }
+                }
+            }
+        }
+        &__title {
+            font-size: 3em;
+            font-weight: bold;
+            margin-bottom: .7em;
+            margin-top: 2em;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease 0s;
+            &::after {
+                content: '';
+                width: 100%;
+                background-color: $text;
+                height: .05em;
+                margin-top: .3em;
+                transition: all 0.3s ease 0s;
+            }
+            &:hover {
+                color: $redLight;
+                &::after {
+                    background-color: $redLight;
+                }
+            }
+            &:active {
+                color: $red;
+                &::after {
+                    background-color: $red;
+                }
+            }
+        }
+        &__text {
+            margin-bottom: 1em;
+        }
+        &__comment-form {
+            width: 90%;
+            margin-bottom: 1em;
+            * {
+                font-size: 1.3em;
+            }
+            .input-text {
+                background: none;
+                background-color: $dark2;
+                width: 100%;
+                font-size: 2em;
+                margin-bottom: 0.3em;
+                padding: .5em;
+                border-radius: .1em;
+                transition: all 0.3s ease 0s;
+                &:focus {
+                    color: $light1;
+                }
+            }
+            .submit {
+                display: none;
+            }
+            .btn {
+                width: 100%;
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+                span {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 0.5em;
+                    background-color: $dark1;
+                    transition: all 0.3s ease 0s;
+                    user-select: none;
+                    border-radius: .1em;
+                    cursor: pointer;
+                    &:hover {
+                        filter: contrast(90%);
+                        color: $redLight;
+                    }
+                    &:active {
+                        filter: contrast(70%);
+                        color: $red;
+                    }
+                }
+            }
+        }
+        &__comment {
+            width: 90%;
+            background-color: $dark2;
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 1em;
+            padding: 0.3em;
+            &-text,
+            &-about {
+                padding: 0.3em;
+                font-size: 1.8em;
+            }
+            &-date {
+                font-size: .7em;
+                text-decoration: underline;
+            }
+            &-user {
+                transition: all 0.3s ease 0s;
+                cursor: pointer;
+                &:hover {
+                    filter: contrast(90%);
+                    color: $redLight;
+                }
+                &:active {
+                    filter: contrast(70%);
+                    color: $red;
+                }
+            }
+            &-about {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
             }
         }
     }

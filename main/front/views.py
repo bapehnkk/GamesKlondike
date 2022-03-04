@@ -15,7 +15,7 @@ def home(request):
         })
         cards.append({
             'title': 'Title'+str(n+1),
-            'link': '/',
+            'link': 'post',
             'text': ('Text'+str(n+1))*100,
             'date': 'date'+str(n+1),
             'tags': [{
@@ -32,3 +32,10 @@ def home(request):
 
     }
     return render(request, 'front/home.html', dict)
+
+    
+
+def post(request):
+    dict = {}
+    return render(request, 'front/post.html', dict)
+
