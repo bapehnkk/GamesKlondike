@@ -56,11 +56,11 @@
             </a>
             {% else %}
 
-            <a href="/" class="row">
+            <a href="{% url 'login'%}" class="row">
                 <i class="fa-light fa-user-check"></i>
                 <div class="text">Login</div>
             </a>
-            <a href="/" class="row">
+            <a href="{%url 'register'%}" class="row">
                 <i class="fa-light fa-user-plus"></i>
                 <div class="text">Register</div>
             </a>

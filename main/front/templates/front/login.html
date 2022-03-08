@@ -1,0 +1,38 @@
+{% extends 'layout.html' %} {% load static %} {% block lang %}ru{% endblock %} {% block title %}Home{% endblock %} {%block addictionsBefore %}
+<link rel="stylesheet" href="{% static 'icons.css' %}">
+<link rel="stylesheet" href="{% static 'main.css' %}"> {% endblock %} {% block header %}{% endblock %} {% block main %}
+<div class="main">
+
+    <form action="" method="post" class="auth">
+        {% csrf_token %}
+
+        <div class="auth__container">
+            <div class="auth__title-main">SingIn</div>
+
+            <div class="auth__error none">Some error</div>
+
+            <div class="auth__title">Email</div>
+            <input class="auth__input" type="email" name="" id="" required/>
+
+            <div class="auth__title">Password</div>
+            <input class="auth__input" type="password" name="" id="" required/>
+
+            <div class="auth__btn">Login</div>
+            <input class="auth__submit" type="submit" value="" />
+
+            <div class="auth__links">
+                <a href="/">Forgot password</a>
+                <a href="{%url 'register'%}">Register</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.querySelector('.auth__btn').addEventListener('click', () => {
+        document.querySelector('.auth__submit').click();
+    });
+</script>
+
+
+{% endblock %} {% block footer %}{% endblock %} {% block addictionsAfter %} {% endblock %}

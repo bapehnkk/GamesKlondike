@@ -6,6 +6,7 @@
     padding: 100px 0px 0px 0px;
     color: #ABB2BF;
     background: #1E2227;
+    min-width: 100% !important;
     .views-switch-list {
         color: $text;
         width: 100%;
@@ -56,9 +57,11 @@
                 width: 100%;
                 display: flex;
                 justify-items: center;
-                justify-content: center;
+                justify-content: flex-end;
                 flex-direction: column;
                 margin-bottom: 1em;
+                min-height: 10em;
+                background: url('/static/img/spiner.gif') center / 64px no-repeat;
                 &::after {
                     content: '';
                     width: 100%;
@@ -206,6 +209,11 @@
                     transform: scale(1.05);
                     color: $redLight;
                 }
+            }
+        }
+        @media (max-width: 1200px) {
+            & {
+                font-size: 3em;
             }
         }
         @media (max-width: 1000px) {
@@ -514,5 +522,242 @@
                 justify-content: space-between;
             }
         }
+    }
+    .auth {
+        font-size: 2em;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        &__container {
+            width: 50%;
+        }
+        &__input,
+        &__title {
+            width: 100%;
+            padding: 0.5em;
+            color: $text;
+            transition: all 0.3s ease 0s;
+        }
+        &__title {
+            padding-left: 0;
+            font-weight: bold;
+            &:hover {
+                color: $red;
+            }
+            &-main {
+                font-size: 1.5em;
+                margin-bottom: .5em;
+                display: flex;
+                flex-direction: column;
+                transition: all 0.3s ease 0s;
+                &::after {
+                    content: '';
+                    height: 0.05em;
+                    width: 100%;
+                    background-color: $text;
+                    transition: all 0.3s ease 0s;
+                }
+                &:hover {
+                    color: $red;
+                    &::after {
+                        background-color: $red;
+                    }
+                }
+            }
+        }
+        &__input {
+            background: none;
+            background-color: $dark2;
+            font-size: 1em;
+            margin-bottom: 0.5em;
+            border-radius: .1em;
+            &:focus {
+                color: $light1;
+            }
+        }
+        &__btn {
+            background-color: $dark2;
+            display: inline-block;
+            padding: 0.5em;
+            font-size: 1em;
+            border-radius: .1em;
+            transition: all 0.3s ease 0s;
+            cursor: pointer;
+            margin-bottom: 1em;
+            &:hover {
+                filter: contrast(80%);
+                color: $red;
+            }
+            &:active {
+                transform: scale(.9);
+            }
+        }
+        &__submit {
+            display: none;
+        }
+        &__error {
+            background-color: $redLight;
+            color: $dark2;
+            filter: brightness(80%);
+            display: inline-block;
+            padding: 0.5em;
+            border-radius: .1em;
+            &.none {
+                display: none;
+            }
+        }
+        &__links {
+            display: flex;
+            a {
+                color: $text;
+                margin-right: 1em;
+                border-radius: .1em;
+                transition: all 0.3s ease 0s;
+                font-size: 0.8em;
+                cursor: pointer;
+                margin-bottom: 1em;
+                &:hover {
+                    filter: contrast(80%);
+                    color: $red;
+                }
+                &:active {
+                    transform: scale(.9);
+                }
+            }
+        }
+    }
+    .profile {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        justify-content: center;
+        margin-bottom: 10em;
+        flex-wrap: wrap;
+        &__row {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: stretch;
+            padding: 1em 0;
+            &.line::after {
+                content: '';
+                width: 100%;
+                background-color: $dark2;
+                height: .1em;
+                transition: all 1s ease 0s;
+            }
+            &::before {
+                content: '';
+                width: 1em;
+                height: 6em;
+                background-color: $redLight;
+                filter: contrast(60%);
+                position: absolute;
+                transform: translate(0, -2em);
+                transition: all 1s ease 0s;
+                opacity: 0;
+                border-radius: .3em 0 0 0;
+            }
+            &.avatar::before {
+                display: none;
+            }
+            &.active::before {
+                opacity: 1;
+            }
+            &:hover {
+                .profile__link {
+                    color: $redLight;
+                    filter: contrast(60%);
+                }
+                &.line::after {
+                    background-color: $redLight;
+                    filter: contrast(60%);
+                }
+                &::before {
+                    opacity: 1;
+                }
+            }
+            &:active {
+                .profile__link {
+                    color: $red;
+                    filter: contrast(100%);
+                }
+                &.line::after {
+                    background-color: $red;
+                    filter: contrast(100%);
+                }
+                &::before {
+                    background-color: $red;
+                    filter: contrast(100%);
+                    opacity: 1;
+                }
+            }
+        }
+        &__column {
+            padding: 1em;
+            width: 70%;
+            background-color: $dark1;
+            &.asside {
+                width: 20%;
+                background-color: $dark3;
+            }
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            justify-content: stretch;
+        }
+        &__avatar {
+            width: 100%;
+            padding: 5em;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            img {
+                max-width: 100%;
+                border-radius: 50%;
+                margin-right: 5em;
+                border: 2px $text solid;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin: auto;
+            }
+        }
+        &__username,
+        &__nickname {
+            color: $text;
+            font-size: 3em;
+            transition: all 0.3s ease 0s;
+        }
+        &__nickname {
+            font-size: 2.5em;
+            text-transform: lowercase;
+            &::before {
+                content: '@';
+            }
+        }
+        &__link {
+            width: 100%;
+            padding: .5em 0;
+            padding-left: 1em;
+            font-size: 2em;
+            color: $text;
+            transition: all 1s ease 0s;
+        }
+        &__title {
+            font-size: 2em;
+            font-weight: bold;
+        }
+        &__container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        @media (max-width: 767px) {}
     }
 }

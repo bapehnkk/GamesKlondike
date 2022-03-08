@@ -1,0 +1,53 @@
+{% extends 'layout.html' %} {% load static %} {% block lang %}ru{% endblock %} {% block title %}Home{% endblock %} {% block addictionsBefore %}
+<link rel="stylesheet" href="{% static 'icons.css' %}">
+<link rel="stylesheet" href="{% static 'main.css' %}"> {% endblock %} {% block header %}{%include 'header.html'%}{% endblock %} {% block main %}
+<div class="main">
+
+    <div class="profile">
+
+        <div class="profile__column asside">
+            <div class="profile__row line avatar">
+                <div class="profile__avatar">
+                    <img src="https://avatars.githubusercontent.com/u/49856345?v=4" alt="">
+                </div>
+            </div>
+            <div class="profile__row line">
+                <a href="{%url 'profile'%}" class=" profile__link ">Account overview</a>
+            </div>
+            <div class="profile__row line ">
+                <a href=" / " class="profile__link ">Edit profile</a>
+            </div>
+            <div class="profile__row line ">
+                <a href="/ " class="profile__link ">Change password</a>
+            </div>
+            <div class="profile__row line ">
+                <a href="/ " class="profile__link ">Notification settings</a>
+            </div>
+            <div class="profile__row line ">
+                <a href="/ " class="profile__link ">Privacy settings</a>
+            </div>
+            <div class="profile__row line {%if 'bookmark' in profile_if%}active{%endif%} ">
+                <a href="{%url 'profile_bookmark'%} " class="profile__link ">My bookmarks</a>
+            </div>
+            <div class="profile__row line ">
+                <a href="/ " class="profile__link ">Receipts</a>
+            </div>
+        </div>
+        <div class="profile__column ">
+            <!-- <div class="profile__username ">Arseny Manokhin</div>
+            <div class="profile__nickname ">BAPEHNKK</div> -->
+
+            {%if 'bookmark' in profile_if%}
+            <div class="profile__container ">
+                <div class="profile__title ">Bookmarks</div>
+                {% include 'cards.html'%}
+            </div>
+            {%endif%}
+        </div>
+    </div>
+
+
+</div>
+
+{% endblock %} {% block footer %}{%include 'footer.html'%}{% endblock %} {% block addictionsAfter %}
+<script src="{%static 'js/header.js'%} "></script>{% endblock %}
