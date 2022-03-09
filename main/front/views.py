@@ -86,3 +86,5 @@ def profile_bookmark(request):
     }
     return render(request, 'front/profile.html', dict)
 
+def more_post(request):
+    

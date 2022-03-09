@@ -112,29 +112,42 @@
 
 <script>
     // Lazy images loading
-    const windowHeight = document.documentElement.clientHeight;
-
     lazyScroll();
     window.addEventListener('scroll', lazyScroll);
+    window.addEventListener('resize', lazyScroll);
 
     function lazyScroll() {
         if (document.querySelectorAll('img[data-src]').length > 0) {
-            lazyScrollCheck();
+            lazyScrollCheckImg();
+        }
+        if (document.querySelectorAll('source[data-srcset]').length > 0) {
+            lazyScrollCheckSource();
         }
     }
 
-    function lazyScrollCheck() {
+    function lazyScrollCheckImg() {
         let lazyImages = document.querySelectorAll('img[data-src]');
 
         for (let i = 0; i < lazyImages.length; i++) {
             let itemHeight = lazyImages[i].getBoundingClientRect().top + pageYOffset;
-            if (pageYOffset + windowHeight > itemHeight && lazyImages[i].dataset.src) {
-                // console.log([i]);
+            if (pageYOffset + window.innerHeight > itemHeight && lazyImages[i].dataset.src) {
+                console.log([i]);
                 lazyImages[i].src = lazyImages[i].dataset.src;
                 lazyImages[i].removeAttribute('data-src');
-
             }
         }
+    }
 
+    function lazyScrollCheckSource() {
+        let lazyImages = document.querySelectorAll('source[data-srcset]');
+
+        for (let i = 0; i < lazyImages.length; i++) {
+            let itemHeight = lazyImages[i].getBoundingClientRect().top + pageYOffset;
+            if (pageYOffset + window.innerHeight > itemHeight && lazyImages[i].dataset.srcset) {
+                console.log([i]);
+                lazyImages[i].src = lazyImages[i].dataset.srcset;
+                lazyImages[i].removeAttribute('data-srcset');
+            }
+        }
     }
 </script>
