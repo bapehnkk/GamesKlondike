@@ -4,6 +4,7 @@ from . import views
 
 urlpatterns = [
     path('', views.home, name='index'),
+    path('more_cards/', views.more_cards, name='more_cards'),
     path('post/', views.post, name='post'), # условно, потом путь изменить
     path('login/', views.login, name='login'), 
     path('register/', views.register, name='register'), 

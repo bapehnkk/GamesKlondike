@@ -4,28 +4,8 @@
     <div class="row-btn"><i class="fa-light fa-list"></i></div>
     <div class="collumn-btn active"><i class="fa-light fa-table-cells"></i></div>
 </div>
-<div class="cards-container">
-    {% for card in cards %}
-    <div class="card">
-        <a href="{{card.link}}" class="card__img">
-            <img data-src="{%static 'img/waha.jpg'%}" src="{%static 'img/1x1.png'%}" alt="">
-        </a>
-        <div class="card__content">
-            <div class="card__line after">
-                <a href="{{card.link}}" class="card__title">{{card.title}}</a>
-                <div class="card__text">{{card.text}}</div>
-            </div>
-            <div class="card__line none">
-                <div class="card__tags">
-                    {% for tag in card.tags %}
-                    <a href="{{tag.link}}" class="card__tag">{{tag.text}}</a> {%endfor%}
-                </div>
-                <div class="card__date">{{card.date}}</div>
-            </div>
-        </div>
-    </div>
-
-    {%endfor%}
+<div class="cards-container _load-more">
+    {%include 'card.html'%}
 </div>
 
 <div class="cookie-message">
@@ -112,6 +92,10 @@
 
 <script>
     // Lazy images loading
+    const loadMoreBlock = document.querySelector('._load-more');
+
+    let cardCounter = 1;
+
     lazyScroll();
     window.addEventListener('scroll', lazyScroll);
     window.addEventListener('resize', lazyScroll);
@@ -122,6 +106,10 @@
         }
         if (document.querySelectorAll('source[data-srcset]').length > 0) {
             lazyScrollCheckSource();
+        }
+        if (!loadMoreBlock.classList.contains('_loading')) {
+            // alert();
+            loadMore();
         }
     }
 
@@ -148,6 +136,43 @@
                 lazyImages[i].src = lazyImages[i].dataset.srcset;
                 lazyImages[i].removeAttribute('data-srcset');
             }
+        }
+    }
+
+
+    function loadMore() {
+        const loadMoreBlockPos = loadMoreBlock.getBoundingClientRect().top + pageYOffset;
+        const loadMoreBlockHeight = loadMoreBlock.offsetHeight;
+
+        if (pageYOffset > (loadMoreBlockPos + loadMoreBlockHeight) - window.innerHeight) {
+            getContent();
+        }
+    }
+
+    async function getContent() {
+        if (!document.querySelector('._loading-icon')) {
+            loadMoreBlock.insertAdjacentHTML(
+                'beforeend',
+                `<div class="_loading-icon">LOADING</div>`
+            );
+        }
+        loadMoreBlock.classList.add('_loading');
+
+        let response = await fetch(
+            '{%url "more_cards"%}', {
+                method: 'GET',
+            });
+
+        if (response.ok) {
+            cardCounter++;
+            let result = await response.text();
+            loadMoreBlock.insertAdjacentHTML('beforeend', result);
+            loadMoreBlock.classList.remove('_loading');
+            if (document.querySelector('._loading-icon')) {
+                document.querySelector('._loading-icon').remove();
+            }
+        } else {
+            alert('Error');
         }
     }
 </script>

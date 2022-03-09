@@ -1,0 +1,20 @@
+{% load static %} {% for card in cards %}
+<div class="card">
+    <a href="{{card.link}}" class="card__img">
+        <img data-src="{%static 'img/waha.jpg'%}" src="{%static 'img/1x1.png'%}" alt="">
+    </a>
+    <div class="card__content">
+        <div class="card__line after">
+            <a href="{{card.link}}" class="card__title">{{card.title}}</a>
+            <div class="card__text">{{card.text}}</div>
+        </div>
+        <div class="card__line none">
+            <div class="card__tags">
+                {% for tag in card.tags %}
+                <a href="{{tag.link}}" class="card__tag">{{tag.text}}</a> {%endfor%}
+            </div>
+            <div class="card__date">{{card.date}}</div>
+        </div>
+    </div>
+</div>
+{%endfor%}

@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.views.generic import DetailView
+
 
 
 def home(request):
@@ -22,7 +24,7 @@ def home(request):
                 'link': '/',
                 'text': 'tag'+str(n+1),
             },
-            {'link': '/','text': 'tag'+str(n+1),}
+                {'link': '/', 'text': 'tag'+str(n+1), }
             ],
         })
     dict = {
@@ -33,7 +35,6 @@ def home(request):
     }
     return render(request, 'front/home.html', dict)
 
-    
 
 def post(request):
     dict = {}
@@ -43,6 +44,7 @@ def post(request):
 def login(request):
     dict = {}
     return render(request, 'front/login.html', dict)
+
 
 def register(request):
     dict = {}
@@ -75,7 +77,7 @@ def profile_bookmark(request):
                 'link': '/',
                 'text': 'tag'+str(n+1),
             },
-            {'link': '/','text': 'tag'+str(n+1),}
+                {'link': '/', 'text': 'tag'+str(n+1), }
             ],
         })
     dict = {
@@ -86,5 +88,42 @@ def profile_bookmark(request):
     }
     return render(request, 'front/profile.html', dict)
 
-def more_post(request):
-    
+
+
+class CardsDetailView(DetailView):
+    pass
+
+def more_cards(request, value=0):
+    print('\r\n'*10)
+    print(value)
+    print('\r\n'*10)
+    alerts = []
+    playlists = []
+    cards = []
+    for n in range(20):
+        alerts.append({
+            'text': 'Lorem'*50,
+            'time': str((n+1)*2)+'min ago'
+        })
+        playlists.append({
+            'text': n,
+        })
+        cards.append({
+            'title': 'Title'+str(n+1),
+            'link': '/post/',
+            'text': ('Text'+str(n+1))*100,
+            'date': 'date'+str(n+1),
+            'tags': [{
+                'link': '/',
+                'text': 'tag'+str(n+1),
+            },
+                {'link': '/', 'text': 'tag'+str(n+1), }
+            ],
+        })
+    dict = {
+        'alerts': alerts,
+        'playlists': playlists,
+        'cards': cards,
+
+    }
+    return render(request, 'card.html', dict)
