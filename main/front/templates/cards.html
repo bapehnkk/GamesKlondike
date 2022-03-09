@@ -7,9 +7,12 @@
 <div class="cards-container _load-more">
     {%include 'card.html'%}
 </div>
+<div class="load-more-cards">
+    <div class="load-more-cards__btn">Load more</div>
+</div>
 
 <div class="cookie-message">
-    <div class="cookie-message__text">We are used cookie</div>
+    <div class="cookie-message__text">This site uses cookies.</div>
     <div class="cookie-message__btns">
         <div class="btn yes">I agree</div>
         <div class="btn no">I do not agree</div>
@@ -107,10 +110,6 @@
         if (document.querySelectorAll('source[data-srcset]').length > 0) {
             lazyScrollCheckSource();
         }
-        if (!loadMoreBlock.classList.contains('_loading')) {
-            // alert();
-            loadMore();
-        }
     }
 
     function lazyScrollCheckImg() {
@@ -138,6 +137,13 @@
             }
         }
     }
+
+    document.querySelector('.load-more-cards__btn').addEventListener('click', () => {
+        if (!loadMoreBlock.classList.contains('_loading')) {
+            // alert();
+            loadMore();
+        }
+    });
 
 
     function loadMore() {
@@ -171,6 +177,7 @@
             if (document.querySelector('._loading-icon')) {
                 document.querySelector('._loading-icon').remove();
             }
+            lazyScroll();
         } else {
             alert('Error');
         }
