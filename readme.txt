@@ -2,8 +2,7 @@
     1. Установить питон 3.10!
     2. Установать зависимости (файл requirements.txt)
     3. Запустить проект:
-        1) Перейти в папку main
-        2) Написать команду py manage.py runserver
+        1) Написать команду py manage.py runserver
 
 Настройка сборщика SASS (.scss):
     (Используется VS Code)
@@ -18,9 +17,14 @@
             "format": "compressed",
             "autoprefix": "last 5 versions",
             "extensionName": ".css",
-            "savePath": "main\\front\\static"
+            "savePath": "static"
         }
     ],
 
     5) Запустить сборщик Watсh Sass (справа внизу на панели нажать на кнопку)
     
+
+Админ панель:
+    url: http://localhost:8000/admin
+    Email: admin@gmail.com
+    Password: 123
