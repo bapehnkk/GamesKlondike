@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin', # lib for admin panel
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -38,9 +39,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # Libraries
+    'django_cleanup.apps.CleanupConfig',    
+    
+    # App
     'src.front.apps.FrontConfig',
     'src.posts.apps.PostsConfig',
     'src.oauth.apps.OauthConfig',
+
+    
 ]
 
 MIDDLEWARE = [

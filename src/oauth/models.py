@@ -46,12 +46,12 @@ class User(AbstractBaseUser, PermissionsMixin):
     JoinIP = models.CharField(max_length=200)
     LastIP = models.CharField(max_length=200)
 
-    avatar = models.ImageField(
+    Avatar = models.ImageField(
         upload_to=get_path_upload_avatar,
         blank=True,
         null=True,
         validators=[FileExtensionValidator(
-            allowed_extensions=['jpg', 'png']), validate_size_image]
+            allowed_extensions=['jpg', 'jpeg', 'gif', 'png']), validate_size_image]
     )
 
     objects = UserManager()
