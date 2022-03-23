@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import DetailView
-
+from src.oauth.models import User
+from src.posts.models import PostGame
 
 def home(request):
     alerts = []
@@ -14,17 +15,18 @@ def home(request):
         playlists.append({
             'text': n,
         })
+        posts = PostGame.objects.all()
+        print(posts[0].Email)
+
         cards.append({
-            'title': 'Title'+str(n+1),
+            'title': posts[0].Title,
             'link': '/post/',
-            'text': ('Text'+str(n+1))*100,
-            'date': 'date'+str(n+1),
+            'text': posts[0].Description,
+            'date': posts[0].PubDate,
             'tags': [{
                 'link': '/',
-                'text': 'tag'+str(n+1),
-            },
-                {'link': '/', 'text': 'tag'+str(n+1), }
-            ],
+                'text': tag,
+            } for tag in posts.all()[0].Tags.all()],
         })
     dict = {
         'alerts': alerts,
@@ -146,3 +148,10 @@ def more_cards(request, value=0):
 
     }
     return render(request, 'card.html', dict)
+
+
+def get_header_info(request) -> dict:
+    header = {
+
+    }
+    return header
