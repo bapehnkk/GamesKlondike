@@ -69,6 +69,12 @@ def profile_notifications(request):
     }
     return render(request, 'front/profile.html', dict)
 
+def profile_privacy(request):
+    dict = {
+        'profile_if': 'privacy',
+    }
+    return render(request, 'front/profile.html', dict)
+
 def profile_bookmark(request):
     alerts = []
     playlists = []

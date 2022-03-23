@@ -11,6 +11,7 @@ urlpatterns = [
 
     path('profile/', views.profile, name='profile'), 
     path('profile/edit', views.profile_edit, name='profile_edit'),
-        path('profile/notifications', views.profile_notifications, name='profile_notifications'), 
+    path('profile/notifications', views.profile_notifications, name='profile_notifications'), 
+    path('profile/privacy', views.profile_privacy, name='profile_privacy'), 
     path('profile/bookmark', views.profile_bookmark, name='profile_bookmark'), 
 ]
