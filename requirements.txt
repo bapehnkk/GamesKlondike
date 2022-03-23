@@ -1,3 +1,4 @@
 pip install Django==4.0.2
 pip install django-cleanup==6.0.0
 pip install django-jazzmin==2.4.9
+pip install Pillow==9.0.1

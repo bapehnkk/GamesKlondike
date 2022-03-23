@@ -8,6 +8,9 @@ urlpatterns = [
     path('post/', views.post, name='post'), # условно, потом путь изменить
     path('login/', views.login, name='login'), 
     path('register/', views.register, name='register'), 
+
     path('profile/', views.profile, name='profile'), 
+    path('profile/edit', views.profile_edit, name='profile_edit'),
+        path('profile/notifications', views.profile_notifications, name='profile_notifications'), 
     path('profile/bookmark', views.profile_bookmark, name='profile_bookmark'), 
 ]

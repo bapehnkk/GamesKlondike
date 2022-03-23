@@ -2,7 +2,6 @@ from django.shortcuts import render
 from django.views.generic import DetailView
 
 
-
 def home(request):
     alerts = []
     playlists = []
@@ -52,9 +51,23 @@ def register(request):
 
 
 def profile(request):
-    dict = {}
+    dict = {
+        'profile_if': 'AccountOverview',
+    }
     return render(request, 'front/profile.html', dict)
 
+
+def profile_edit(request):
+    dict = {
+        'profile_if': 'edit',
+    }
+    return render(request, 'front/profile.html', dict)
+
+def profile_notifications(request):
+    dict = {
+        'profile_if': 'notifications',
+    }
+    return render(request, 'front/profile.html', dict)
 
 def profile_bookmark(request):
     alerts = []
@@ -89,9 +102,9 @@ def profile_bookmark(request):
     return render(request, 'front/profile.html', dict)
 
 
-
 class CardsDetailView(DetailView):
     pass
+
 
 def more_cards(request, value=0):
     print('\r\n'*10)

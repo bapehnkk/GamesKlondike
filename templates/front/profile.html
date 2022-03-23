@@ -15,13 +15,10 @@
                 <a href="{%url 'profile'%}" class=" profile__link ">Account overview</a>
             </div>
             <div class="profile__row line ">
-                <a href=" / " class="profile__link ">Edit profile</a>
+                <a href="{%url 'profile_edit'%}" class="profile__link ">Edit profile</a>
             </div>
             <div class="profile__row line ">
-                <a href="/ " class="profile__link ">Change password</a>
-            </div>
-            <div class="profile__row line ">
-                <a href="/ " class="profile__link ">Notification settings</a>
+                <a href="{%url 'profile_notifications'%}" class="profile__link ">Notification settings</a>
             </div>
             <div class="profile__row line ">
                 <a href="/ " class="profile__link ">Privacy settings</a>
@@ -29,15 +26,24 @@
             <div class="profile__row line {%if 'bookmark' in profile_if%}active{%endif%} ">
                 <a href="{%url 'profile_bookmark'%} " class="profile__link ">My bookmarks</a>
             </div>
-            <div class="profile__row line ">
-                <a href="/ " class="profile__link ">Receipts</a>
-            </div>
         </div>
         <div class="profile__column ">
             <!-- <div class="profile__username ">Arseny Manokhin</div>
             <div class="profile__nickname ">BAPEHNKK</div> -->
 
-            {%if 'bookmark' in profile_if%}
+            {%if 'AccountOverview' in profile_if%}
+            <div class="profile__container">
+                <div class="profile__title">AccountOverview</div>
+            </div>
+            {%endif%} {%if 'edit' in profile_if%}
+            <div class="profile__container">
+                <div class="profile__title">Edit</div>
+            </div>
+            {%endif%} {%if 'notifications' in profile_if%}
+            <div class="profile__container">
+                <div class="profile__title">Notifications</div>
+            </div>
+            НАПОЛНЕНИЕ {%endif%} {%if 'bookmark' in profile_if%}
             <div class="profile__container ">
                 <div class="profile__title ">Bookmarks</div>
                 {% include 'cards.html'%}
