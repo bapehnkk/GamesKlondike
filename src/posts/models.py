@@ -140,7 +140,7 @@ class UserBookmarks(models.Model):
     UserID = models.OneToOneField(
         User, on_delete=models.CASCADE, primary_key=True)
 
-    Bookmarks = models.ManyToManyField(PostTag)
+    Bookmarks = models.ManyToManyField(PostGame)
 
     class Meta:
         verbose_name = 'User bookmarks'
