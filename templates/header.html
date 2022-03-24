@@ -13,7 +13,7 @@
         </div>
     </div>
     <div class="column column-ser column-none">
-        <form class="column__search-form" action="" method="get">
+        <form class="column__search-form" action="{%url 'home'%}" method="get">
             <input class="column__search-input" type="text" name="search" id="">
             <input type="submit" value="" class="column__submit">
             <i class="fa-light fa-xmark hidden column__search-cross"></i>
@@ -23,34 +23,51 @@
     <div class="column">
         <div class="column__item small-search"> <i class="fa-light fa-magnifying-glass "></i>
         </div>
-        <div class="column__item bell"><i class="fa-light fa-bell"></i></div>
+
+
+        <div class="column__item bell {% if request.user.is_authenticated is False %}none{%endif%}">
+            <i class="fa-light fa-bell"></i>
+        </div>
         <div class="column__bell none">
             <div class="title">Alerts</div>
-            {% for alert in alerts %}
+            {% for alert in header.alerts %}
             <a href="/" class="allert">
-                <img src="{%static 'img/no-image.png'%}" alt="" class="allert__img">
+                <img src="{% static alert.image %}" alt="" class="allert__img">
                 <div class="allert__content">
                     <div class="allert__text">{{alert.text}}</div>
                     <div class="allert__time">{{alert.time}}</div>
                 </div>
             </a>
             {% endfor %}
-
         </div>
-        <div class="column__item user"><i class="fa-light fa-user"></i></div>
+
+        <div class="column__item user">
+            <i class="fa-light fa-user"></i>
+        </div>
 
         <div class="column__user none">
             {% if request.user.is_authenticated %}
             <a href="/" class="title">
-                <img src="{%static 'img/no-image.png'%}" alt="">
-                <div class="username">Username</div>
+                <img src="{{request.user.Avatar.url}}" alt="">
+                <div class="username">{{request.user.UserName}}</div>
             </a>
             <div class="line"></div>
             <a href="/" class="row">
                 <i class="fa-regular fa-link"></i>
                 <div class="text">Links</div>
             </a>
-            <a href="/" class="row">
+            <a href="{%url 'profile'%}" class="row">
+                <i class="fa-light fa-briefcase-blank"></i>
+                <div class="text">Profile</div>
+            </a>
+            {% if request.user.is_superuser %}
+            <a href="/admin" class="row">
+                <i class="fas fa-users-cog"></i>
+                <div class="text">Admin panel</div>
+            </a>
+            {%endif%}
+            <div class="line"></div>
+            <a href="{% url 'logout_view'%}" class="row">
                 <i class="fa-solid fa-arrow-right-from-bracket"></i>
                 <div class="text">Logout</div>
             </a>

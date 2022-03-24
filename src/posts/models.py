@@ -1,3 +1,4 @@
+import black
 from django.db import models
 from src.oauth.models import User
 
@@ -26,9 +27,10 @@ class PostGame(models.Model):
 
     Title = models.CharField(max_length=200, unique=True)
     Description = models.TextField(max_length=10000, blank=True, null=True)
+    ReleaseDate = models.DateTimeField(auto_now_add=False)
 
     PubDate = models.DateTimeField(auto_now_add=True)
-    ChangeDate = models.DateTimeField(auto_now_add=True)
+    ChangeDate = models.DateTimeField(auto_now=True)
 
     Tags = models.ManyToManyField(PostTag)
 
@@ -66,9 +68,13 @@ class PostLink(models.Model):
     PostID = models.ForeignKey(
         PostGame, on_delete=models.CASCADE, related_name='post_links')
 
-    Link = models.URLField()
+    Link = models.URLField(unique=True)
+
+    Text = models.CharField(max_length=255)
 
     Image = models.ImageField(
+        null=True,
+        blank=True,
         upload_to=get_path_upload_post_image,
         validators=[FileExtensionValidator(
             allowed_extensions=['jpg', 'jpeg', 'gif', 'png']), validate_size_image]
@@ -104,7 +110,9 @@ class PostComment(models.Model):
     Email = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='comment_user')
 
-    Comment = models.TextField(max_length=2000, unique=True)
+    Text = models.TextField(max_length=2000, unique=True)
+    PubDate = models.DateTimeField(auto_now_add=True)
+
 
     class Meta:
         verbose_name = 'Post Comments'
@@ -118,9 +126,9 @@ class CommentLikeDislike(models.Model):
     """ Модель лайков/дизлайков к комментарию
     """
     CommentID = models.ForeignKey(
-        PostGame, on_delete=models.CASCADE, related_name='like_dislike_comment')
+        PostComment, on_delete=models.CASCADE, related_name='like_dislike_comment')
     Email = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='like_dislike_user')
+        User, on_delete=models.CASCADE, related_name='like_dislike_user', unique=True)
 
     Status = models.BooleanField(default=False)
 

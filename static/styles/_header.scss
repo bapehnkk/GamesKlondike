@@ -131,6 +131,15 @@
             input {
                 display: none;
                 margin: 0 .3em;
+                outline: none;
+                &:-webkit-autofill {
+                    -webkit-box-shadow: inset 0 0 0 50px $dark1 !important;
+                    /* Цвет фона */
+                    -webkit-text-fill-color: $text !important;
+                    /* цвет текста */
+                    color: $text!important;
+                    /* цвет текста */
+                }
             }
             input[type="text"] {
                 display: flex;
@@ -143,6 +152,15 @@
                 color: $text;
                 margin: .1em;
                 width: 100%;
+                outline: none;
+                &:-webkit-autofill {
+                    -webkit-box-shadow: inset 0 0 0 50px $dark3 !important;
+                    /* Цвет фона */
+                    -webkit-text-fill-color: $text !important;
+                    /* цвет текста */
+                    color: $text!important;
+                    /* цвет текста */
+                }
             }
             i {
                 display: flex;

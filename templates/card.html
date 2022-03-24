@@ -1,7 +1,7 @@
 {% load static %} {% for card in cards %}
 <div class="card">
     <a href="{{card.link}}" class="card__img">
-        <img data-src="{%static 'img/waha.jpg'%}" src="{%static 'img/1x1.png'%}" alt="">
+        <img data-src="{{card.images.0.Image.url}}" src="{%static 'img/1x1.png'%}" alt="">
     </a>
     <div class="card__content">
         <div class="card__line after">

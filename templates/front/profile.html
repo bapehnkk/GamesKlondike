@@ -1,8 +1,10 @@
-{% extends 'layout.html' %} {% load static %} {% block lang %}ru{% endblock %} {% block title %}Home{% endblock %} {% block addictionsBefore %}
+{% extends 'layout.html' %} {% load static %} {% block lang %}ru{% endblock %} {% block title %}Home{% endblock %} {% block addictionsBefore %} {% if request.user.is_authenticated is False%}
+<meta http-equiv="refresh" content="0;URL={%url 'home'%}" /> {%endif%}
 <link rel="stylesheet" href="{% static 'icons.css' %}">
 <link rel="stylesheet" href="{% static 'main.css' %}"> {% endblock %} {% block header %}{%include 'header.html'%}{% endblock %} {% block main %}
 <div class="main">
 
+    {% if request.user.is_authenticated %}
     <div class="profile">
 
         <div class="profile__column asside">
@@ -59,6 +61,5 @@
 
 
 </div>
-
-{% endblock %} {% block footer %}{%include 'footer.html'%}{% endblock %} {% block addictionsAfter %}
+{%else%} Выйди отсюда <img src="{%static 'img/profile-no-user.jpg'%}" alt="">{%endif%} {% endblock %} {% block footer %}{%include 'footer.html'%}{% endblock %} {% block addictionsAfter %}
 <script src="{%static 'js/header.js'%} "></script>{% endblock %}
