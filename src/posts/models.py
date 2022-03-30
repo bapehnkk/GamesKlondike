@@ -1,4 +1,3 @@
-import black
 from django.db import models
 from src.oauth.models import User
 

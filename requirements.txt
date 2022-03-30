@@ -2,3 +2,5 @@ pip install Django==4.0.2
 pip install django-cleanup==6.0.0
 pip install django-jazzmin==2.4.9
 pip install Pillow==9.0.1
+pip install beautifulsoup4==4.10.0
+pip install requests==2.27.1

@@ -1,7 +1,6 @@
 import xml.etree.ElementTree as ET
 from urllib.parse import urljoin
 from bs4 import BeautifulSoup
-import eel
 import requests
 from django.db import models
 import json
@@ -59,18 +58,14 @@ class Page:
     """ Содержит элементы и ошибки с проппаршеной странцы
     """
     __slots__ = ('_Page__error', '_Page__url',
-                 '_Page__soup', '_Page__selector')
+                 '_Page__soup', '_Page__selectors', '_Page__all_tags')
 
     def __init__(self, url, soup, selectors=None):
         self.__error = ''
         self.__url = ''
-        self.__all_tags = tuple([])
         self.__selectors = selectors
         self.__soup = soup
-        # elements=[
-        #     [self.__create_HtmlItem(item=item) for item in soup.select(
-        #         selector)]    # foreach in soup items
-        #     for selector in self.__selectors]]  # foreach in selectors
+        self.__all_tags = tuple([])
         if isinstance(url, (str)):
             if self.check_site(url):
                 self.__url = url
@@ -80,21 +75,34 @@ class Page:
             self.__error = 'url is not string'
         # Creating and sorting empty lists
         try:
-            self.__all_tags = list(filter(None, soup))
-            # print(self.__elements)
-            self.__all_tags = tuple([{
-                'selector': self.__selectors,
-                'html_tags': [j for j in i]
-            } for i in self.__all_tags])
+            self.__set_all_tags()
         except:
-            self.__error = 'Incorrect data type (elements!=[[HtmlItem,...],...])'
+            self.__error = 'Incorrect data type '
 
     def __set_all_tags(self):
+        """
+                {
+                    'selector': 'selector',
+                    'tags': [] 
+                }
+        """
         if self.__selectors == None:
             self.__error = str('Exception: Slectors are not selected')
-            self.__all_tags =[self.__create_HtmlItem(item=item) for item in self.__soup.find_all()]
+            print(f'\r\nSTART: {self.__error}\r\n')
+            self.__all_tags = tuple([{
+                'selector': None,
+                'tags': [self.__create_HtmlItem(item=tag)
+                         for tag in self.__soup.find_all()]
+            } ])
+            print(f'\r\n END: {self.__error}\r\n')
         else:
-            pass
+            self.__all_tags = list(filter(None, self.__soup))
+            # print(self.__elements)
+            self.__all_tags = tuple([{
+                'selector': selector,
+                'tags': [self.__create_HtmlItem(item=tag)
+                         for tag in list(dict.fromkeys(self.__soup.select(selector)))]
+            } for selector in self.__selectors])
 
     def print_error(self):
         print(self.__error)
@@ -119,8 +127,10 @@ class Page:
     def __create_HtmlItem(self, item):
         root = ET.fromstring(str(item))
 
+        # print(f'\r\n Create: {root}\r\n')
         return {
             'tag': root.tag,
+            'text': root.text,
             'atribs': root.attrib
         }
 
@@ -249,6 +259,6 @@ class Parser:
     def get_JSON(pages, sort_keys=False, indent=None) -> json:
         """ Принимает список из классов Page
         """
-        if not isinstance(pages, (tuple, list)) or not [isinstance(page, Page) for page in pages]:
-            raise TypeError
+        # if not isinstance(pages, (tuple, list)) or not [isinstance(page, Page) for page in pages]:
+        #     raise TypeError
         return json.dumps([el.get_dict() for el in pages], sort_keys=sort_keys, indent=indent)
