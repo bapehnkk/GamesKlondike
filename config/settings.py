@@ -46,8 +46,7 @@ INSTALLED_APPS = [
     'src.front.apps.FrontConfig',
     'src.posts.apps.PostsConfig',
     'src.oauth.apps.OauthConfig',
-
-    
+    'src.parser.apps.ParserConfig'    
 ]
 
 MIDDLEWARE = [
@@ -146,3 +145,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 AUTH_USER_MODEL = 'oauth.User'
+
+LOGIN_URL = '/login/'

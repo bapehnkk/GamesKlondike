@@ -3,7 +3,7 @@ from django.db import models
 from src.oauth.models import User
 
 from django.core.validators import FileExtensionValidator
-from base.services import get_path_upload_post_image, validate_size_image
+from base.services import get_path_upload_post_image, validate_size_image, get_path_upload_post_link_image
 
 
 class PostTag(models.Model):
@@ -51,7 +51,7 @@ class PostImage(models.Model):
     Image = models.ImageField(
         upload_to=get_path_upload_post_image,
         validators=[FileExtensionValidator(
-            allowed_extensions=['jpg', 'jpeg', 'gif', 'png']), validate_size_image]
+            allowed_extensions=['jpg', 'jpeg', 'gif']), validate_size_image]
     )
 
     class Meta:
@@ -75,7 +75,7 @@ class PostLink(models.Model):
     Image = models.ImageField(
         null=True,
         blank=True,
-        upload_to=get_path_upload_post_image,
+        upload_to=get_path_upload_post_link_image,
         validators=[FileExtensionValidator(
             allowed_extensions=['jpg', 'jpeg', 'gif', 'png']), validate_size_image]
     )
@@ -119,7 +119,7 @@ class PostComment(models.Model):
         verbose_name_plural = 'Post Comments'
 
     def __str__(self) -> str:
-        return f'{self.PostID}'
+        return f'Post: {self.PostID.id}\r\nText: {self.Text}'
 
 
 class CommentLikeDislike(models.Model):
@@ -127,8 +127,7 @@ class CommentLikeDislike(models.Model):
     """
     CommentID = models.ForeignKey(
         PostComment, on_delete=models.CASCADE, related_name='like_dislike_comment')
-    Email = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='like_dislike_user', unique=True)
+    Email = models.OneToOneField(User, on_delete = models.CASCADE, primary_key = True, related_name='like_dislike_user')
 
     Status = models.BooleanField(default=False)
 
@@ -156,3 +155,4 @@ class UserBookmarks(models.Model):
 
     def __str__(self) -> str:
         return f'{self.UserID}'
+

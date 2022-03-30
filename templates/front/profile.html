@@ -10,7 +10,7 @@
         <div class="profile__column asside">
             <div class="profile__row line avatar">
                 <div class="profile__avatar">
-                    <img src="https://avatars.githubusercontent.com/u/49856345?v=4" alt="">
+                    <img src="{%if request.user.Avatar%}{{request.user.Avatar.url}}{%else%}{%static 'img/no-image.png'%}{%endif%}" alt="">
                 </div>
             </div>
             <div class="profile__row line">

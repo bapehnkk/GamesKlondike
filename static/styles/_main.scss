@@ -180,7 +180,11 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        &.none {
+            display: none;
+        }
         &__btn {
+            user-select: none;
             display: flex;
             justify-content: center;
             align-items: center;

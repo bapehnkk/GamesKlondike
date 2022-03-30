@@ -10,9 +10,9 @@
             {% for img in images %}
             <div class="carousel__photo ">
                 <img src="{{img.Image.url}}">
-            </div> {%endfor%}
+            </div> {%endfor%} {%if images|length > 1%}
             <div class="carousel__button--next"></div>
-            <div class="carousel__button--prev"></div>
+            <div class="carousel__button--prev"></div>{%endif%}
         </div>
     </div> {%endif%}
 
@@ -99,6 +99,7 @@
 
 {% endblock %} {% block footer %}{%include 'footer.html'%}{% endblock %} {% block addictionsAfter %}
 <script src="{%static 'js/header.js'%}"></script>
+
 <script src="{%static 'js/carousel.js'%}"></script>
 <script>
 </script>

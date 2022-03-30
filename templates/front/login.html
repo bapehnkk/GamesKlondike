@@ -1,15 +1,18 @@
-{% extends 'layout.html' %} {% load static %} {% block lang %}ru{% endblock %} {% block title %}Home{% endblock %} {%block addictionsBefore %}
+{% extends 'layout.html' %} {% load static %} {% block lang %}ru{% endblock %} {% block title %}Home{% endblock %} {%block addictionsBefore %} {% if request.user.is_authenticated %}
+<meta http-equiv="refresh" content="0;URL={%url 'home'%}" /> {%endif%}
 <link rel="stylesheet" href="{% static 'icons.css' %}">
 <link rel="stylesheet" href="{% static 'main.css' %}"> {% endblock %} {% block header %}{% endblock %} {% block main %}
 <div class="main">
 
+    {% if request.user.is_authenticated is False %}
     <form action="" method="post" class="auth">
         {% csrf_token %}
 
         <div class="auth__container">
             <div class="auth__title-main">SingIn</div>
 
-            <div class="auth__error none">Some error</div>
+            {%if errors%}
+            <div class="auth__error">{{errors}}</div>{%endif%}
 
             <div class="auth__title">Email</div>
             <input class="auth__input" type="email" name="Email" id="" required/>
@@ -33,6 +36,4 @@
         document.querySelector('.auth__submit').click();
     });
 </script>
-
-
-{% endblock %} {% block footer %}{% endblock %} {% block addictionsAfter %} {% endblock %}
+{%else%} Выйди отсюда <img src="{%static 'img/profile-no-user.jpg'%}" alt="">{%endif%} {% endblock %} {% block footer %}{% endblock %} {% block addictionsAfter %} {% endblock %}

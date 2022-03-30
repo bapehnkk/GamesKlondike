@@ -165,13 +165,15 @@
         loadMoreBlock.classList.add('_loading');
 
         let response = await fetch(
-            '{%url "more_cards"%}', {
+            '/more_cards/' + document.getElementsByClassName('card').length, {
                 method: 'GET',
             });
 
         if (response.ok) {
             cardCounter++;
             let result = await response.text();
+            if (result == ' ')
+                document.querySelector('.load-more-cards').classList.add('none');
             loadMoreBlock.insertAdjacentHTML('beforeend', result);
             loadMoreBlock.classList.remove('_loading');
             if (document.querySelector('._loading-icon')) {

@@ -1,12 +1,11 @@
 from django.db import models
 from django.core.validators import FileExtensionValidator
 
-from base.services import get_path_upload_avatar, validate_size_image
+from base.services import get_client_ip, get_path_upload_avatar, validate_size_image
 
 from django.contrib.auth.models import (
     BaseUserManager, AbstractBaseUser, PermissionsMixin
 )
-
 
 
 class UserManager(BaseUserManager):
@@ -66,7 +65,19 @@ class User(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.Email
 
+    # Не работает, говорит что нету аргумента 'cleaned_data'
+    def create(self, request, form) -> bool:
+        if form.is_valid():
+            self.Email = form.cleaned_data.get('Email')
+            self.set_password(form.cleaned_data.get('Password'))
+            self.UserName = form.cleaned_data.get('UserName')
+            self.Avatar = form.cleaned_data.get('Avatar')
+            self.JoinIP = get_client_ip(request)
+            self.LastIP = get_client_ip(request)
+            self.save()
+            return True
+        return False
+
     class Meta:
         verbose_name = 'User'
         verbose_name_plural = 'User'
-
