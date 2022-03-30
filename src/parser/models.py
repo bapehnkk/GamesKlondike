@@ -59,13 +59,18 @@ class Page:
     """ Содержит элементы и ошибки с проппаршеной странцы
     """
     __slots__ = ('_Page__error', '_Page__url',
-                 '_Page__elements', '_Page__selector')
+                 '_Page__soup', '_Page__selector')
 
-    def __init__(self, url, elements, selector=None):
+    def __init__(self, url, soup, selectors=None):
         self.__error = ''
         self.__url = ''
-        self.__elements = tuple([])
-        self.__selector = selector
+        self.__all_tags = tuple([])
+        self.__selectors = selectors
+        self.__soup = soup
+        # elements=[
+        #     [self.__create_HtmlItem(item=item) for item in soup.select(
+        #         selector)]    # foreach in soup items
+        #     for selector in self.__selectors]]  # foreach in selectors
         if isinstance(url, (str)):
             if self.check_site(url):
                 self.__url = url
@@ -75,14 +80,21 @@ class Page:
             self.__error = 'url is not string'
         # Creating and sorting empty lists
         try:
-            self.__elements = list(filter(None, elements))
+            self.__all_tags = list(filter(None, soup))
             # print(self.__elements)
-            self.__elements = tuple([{
-                'selector': self.__selector,
+            self.__all_tags = tuple([{
+                'selector': self.__selectors,
                 'html_tags': [j for j in i]
-            } for i in self.__elements])
+            } for i in self.__all_tags])
         except:
             self.__error = 'Incorrect data type (elements!=[[HtmlItem,...],...])'
+
+    def __set_all_tags(self):
+        if self.__selectors == None:
+            self.__error = str('Exception: Slectors are not selected')
+            self.__all_tags =[self.__create_HtmlItem(item=item) for item in self.__soup.find_all()]
+        else:
+            pass
 
     def print_error(self):
         print(self.__error)
@@ -92,7 +104,7 @@ class Page:
         # print([[j.get_dict() for j in i] for i in self.__elements])
         return {
             'url': self.__url,
-            'elements': self.__elements,
+            'all_tags_from_page': self.__all_tags,
             'error': self.__error
         }
 
@@ -103,6 +115,14 @@ class Page:
         except:
             self.__error = 'Unknown site'
             return False
+
+    def __create_HtmlItem(self, item):
+        root = ET.fromstring(str(item))
+
+        return {
+            'tag': root.tag,
+            'atribs': root.attrib
+        }
 
 
 class Parser:
@@ -178,20 +198,16 @@ class Parser:
 
                 soup = BeautifulSoup(self.__req.text, 'html.parser')
 
-                if self.__selectors == None:
-                    self.__error = str('Exception: Slectors are not selected')
-                    self.__pages.append(Page(url=self.__site_url, elements=[[
-                        self.__create_HtmlItem(item=item) for item in soup.find_all()]  # foreach in soup items
-                    ]))
-                else:
-                    self.__pages.append(
-                        Page(url=self.__site_url,
-                             elements=[
-                                 [self.__create_HtmlItem(item=item) for item in soup.select(
-                                     selector)]    # foreach in soup items
-                                 for selector in self.__selectors]  # foreach in selectors
-                             )
-                    )
+                self.__pages.append(
+                    Page(url=self.__site_url,
+                         #  elements=[                                                          #уже не elements, а soup
+                         #      [self.__create_HtmlItem(item=item) for item in soup.select(
+                         #          selector)]    # foreach in soup items
+                         #      for selector in self.__selectors]  # foreach in selectors
+                         soup=soup,
+                         selectors=self.__selectors
+                         )
+                )
                 if self.__multipage != None:
                     url_list = soup.select(self.__multipage)
                     if url_list != []:
@@ -220,14 +236,6 @@ class Parser:
                 self.__there_is_the_following_page = True
         except:
             self.__error = '''__check_url_for_next_page() return except (pages maybe they ended)'''
-
-    def __create_HtmlItem(self, item):
-        root = ET.fromstring(str(item))
-
-        return {
-            'tag': root.tag,
-            'atribs': root.attrib
-        }
 
     def __get_request(self, url, params=None):
         req = requests.get(
