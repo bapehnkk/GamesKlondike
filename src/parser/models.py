@@ -5,6 +5,8 @@ import requests
 from django.db import models
 import json
 
+from src.posts.models import PostGame
+
 
 class ParseUrl(models.Model):
     """ Класс содержит в себе сайты и их селекторы, по которым надо пропарсить сайт.
@@ -93,7 +95,7 @@ class Page:
                 'selector': None,
                 'tags': [self.__create_HtmlItem(item=tag)
                          for tag in self.__soup.find_all()]
-            } ])
+            }])
             print(f'\r\n END: {self.__error}\r\n')
         else:
             self.__all_tags = list(filter(None, self.__soup))
@@ -142,18 +144,15 @@ class Parser:
         2) Применить метод parse()
         3) Желательно работать с JSON форматом, т.к так проще (метод get_JSON())
     """
-    STOP = False    # функция остановки парсера (не доделано, нужно её добавить асинхронность)
-
     HEADERS = {
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
 
-    def __init__(self, site_url, selectors=None, multipage=None, number_of_readable_pages=1000000):
+    def __init__(self, site_url=None, selector_link_to_subpage=None, multipage=None, subpage_selectors=None, number_of_readable_pages=1000000):
         self.__error = ''
         if self.check_site(site_url):
             self.__site_url = site_url
         else:
             self.__site_url = None
-        self.__selectors = selectors
         self.__multipage = multipage
 
         self.__req = None
@@ -162,14 +161,19 @@ class Parser:
         self.__counter = number_of_readable_pages
         self.__all_urls = []
 
-        if self.__selectors == [''] or not isinstance(self.__selectors, list) or self.__selectors == []:
-            self.__selectors = None
-        if self.__selectors != None:
-            for el in self.__selectors:
+        self.__selector_link_to_subpage = selector_link_to_subpage
+        if isinstance(self.__selector_link_to_subpage, (list, tuple)):
+            for el in self.__selector_link_to_subpage:
                 if not isinstance(el, str):
-                    self.__selectors = None
+                    self.__selector_link_to_subpage = None
+                    break
+        else:
+            self.__selector_link_to_subpage = None
+
         if self.__multipage == '' or not isinstance(self.__multipage, str):
             self.__multipage = None
+        
+        self.__subpage_selectors = subpage_selectors
 
     def check_site(self, site_name):
         try:
@@ -189,11 +193,7 @@ class Parser:
         self.__req = self.__get_request(url=self.__site_url)
         try:
             counter = 1
-            while self.__there_is_the_following_page and counter < self.__counter and self.STOP == False:
-                try:
-                    eel.print_progress(self.__site_url, counter)
-                except:
-                    pass
+            while self.__there_is_the_following_page and counter < self.__counter:
                 print(counter)
                 self.__error = ''
                 self.__there_is_the_following_page = False
@@ -215,7 +215,7 @@ class Parser:
                          #          selector)]    # foreach in soup items
                          #      for selector in self.__selectors]  # foreach in selectors
                          soup=soup,
-                         selectors=self.__selectors
+                         selectors=self.__selector_link_to_subpage
                          )
                 )
                 if self.__multipage != None:
@@ -232,8 +232,7 @@ class Parser:
             self.__error = e
             print(e)
 
-        if self.STOP:
-            self.__error += '\tThe stop button was pressed'
+        self.subpage_urls = self.__get_subpage_urls_from_pages()
         return tuple(self.__pages)
 
     def __check_url_for_next_page(self, url):
@@ -255,10 +254,78 @@ class Parser:
         return self.__req
         # print(self.__req)
 
-    @staticmethod
-    def get_JSON(pages, sort_keys=False, indent=None) -> json:
-        """ Принимает список из классов Page
+    def get_JSON(self, sort_keys=False, indent=None) -> json:
+        """ Принимает список с объектами класса Page
         """
         # if not isinstance(pages, (tuple, list)) or not [isinstance(page, Page) for page in pages]:
         #     raise TypeError
-        return json.dumps([el.get_dict() for el in pages], sort_keys=sort_keys, indent=indent)
+        return json.dumps(Parser().get_dict(self.__pages), sort_keys=sort_keys, indent=indent)
+
+    @staticmethod
+    def get_dict(pages):
+        """ Принимает список с объектами класса Page и отдаёт словарь
+        """
+        return [el.get_dict() for el in pages]
+
+    def get_all_keys_and_values_from_pages(self):
+        """ Запись данных в БД
+        """
+        for page in Parser.get_dict(self.__pages):
+            page['url']
+            page['error']
+            for all_tags in page['all_tags_from_page']:
+                all_tags['selector']
+                for tag_by_selector in all_tags['tags']:
+                    tag_by_selector['tag']
+                    tag_by_selector['text']
+                    for atrib_key, atrib_value in tag_by_selector['atribs'].items():
+                        atrib_key
+                        atrib_value
+
+    def __get_subpage_urls_from_pages(self) -> list:
+        """ Принимает список с объектами класса Page (со ссылками на подстраницы) и отдаёт массив с подстраницами
+        """
+        sub_pages = []
+        for page in Parser.get_dict(self.__pages):
+            for all_tags in page['all_tags_from_page']:
+                for tag_by_selector in all_tags['tags']:
+                    for atrib_key, atrib_value in tag_by_selector['atribs'].items():
+                        # if atrib_key == 'src':
+                        if atrib_key == 'href':
+                            sub_pages.append(atrib_value)
+
+        return sub_pages
+
+    def parse_subpages(self):
+        """ Парсинг подстраниц 
+        """
+        self.__pages = []
+        self.__subpage_selectors = [value for key, value in self.__subpage_selectors.items()]
+        self.subpage_urls = [
+            urljoin(self.__site_url, url) for url in self.subpage_urls]  # Складываем адреса, чтобы полуить полные
+
+        # for url in self.subpage_urls:
+        url = self.subpage_urls[0]
+        self.__get_request(url)
+        try:
+            if self.__req.status_code == 200:
+                soup = BeautifulSoup(self.__req.text, 'html.parser')
+                p = Page(
+                    url=url,
+                    soup=soup,
+                    selectors=self.__subpage_selectors
+                )
+                self.__pages.append(p)
+                print(p.get_dict())
+            else:
+                self.__error = str(f'Exception: {self.__req}')
+        except Exception as ex:
+            print(ex)
+        return self.get_JSON(sort_keys=True, indent=4)
+
+    def parser(self):
+        """ Когда точно нет коллизии
+        """
+        self.parse()    # взять все url пути на посты 
+        ret_json = self.parse_subpages()    # запарсить посты
+        return ret_json

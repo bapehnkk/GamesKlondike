@@ -1,8 +1,25 @@
 Запуск проекта:
     1. Установить питон 3.10!
     2. Установать зависимости (файл requirements.txt)
+        2.0. Использую для команд Git bash windows
+        2.1. Создать виртуальное окружение python:
+            py -m venv venv
+        2.2. Активировать:
+            source venv/Scripts/activate
+        2.3. Обновить pip:
+            py -m pip install --upgrade pip
+        2.4. Установить зависимости:
+            pip install -r requirements.txt
     3. Запустить проект:
-        1) Написать команду py manage.py runserver
+        3.0. Установить зависимости
+        3.1. Написать команду py manage.py runserver
+    4. Завершение работы:
+        4.1. Выключить Джанго:
+            Ctrl+C
+        4.2. Выключить venv:
+            deactivate
+
+
 
 Настройка сборщика SASS (.scss):
     (Используется VS Code)
