@@ -12,7 +12,8 @@
             pip install -r requirements.txt
     3. Запустить проект:
         3.0. Установить зависимости
-        3.1. Написать команду py manage.py runserver
+        3.1. Написать команду:
+            py manage.py runserver
     4. Завершение работы:
         4.1. Выключить Джанго:
             Ctrl+C
