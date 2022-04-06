@@ -17,6 +17,7 @@ urlpatterns = [
 
     path('profile/', views_oauth.profile, name='profile'), 
     path('profile/edit', views_oauth.profile_edit, name='profile_edit'),
+    path('profile/password', views_oauth.profile_password, name='profile_password'),
     path('profile/notifications', views_oauth.profile_notifications, name='profile_notifications'), 
     path('profile/privacy', views_oauth.profile_privacy, name='profile_privacy'), 
     path('profile/bookmark', views_oauth.profile_bookmark, name='profile_bookmark'), 

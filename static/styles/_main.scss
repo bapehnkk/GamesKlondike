@@ -4,8 +4,8 @@
     flex: 1 1 auto;
     width: 100%;
     padding: 100px 0px 0px 0px;
-    color: #ABB2BF;
-    background: #1E2227;
+    color: #abb2bf;
+    background: #1e2227;
     min-width: 100% !important;
     .views-switch-list {
         color: $text;
@@ -17,7 +17,7 @@
         padding: 1em;
         .row-btn,
         .collumn-btn {
-            margin: .5em;
+            margin: 0.5em;
             cursor: pointer;
             border-radius: 50%;
             transition: all 0.3s ease 0s;
@@ -54,7 +54,7 @@
             background: $dark2;
             filter: brightness(80%);
             transition: all 0.6s ease 0s;
-            border-radius: .1em;
+            border-radius: 0.1em;
             &:hover {
                 filter: brightness(100%);
             }
@@ -66,12 +66,12 @@
                 flex-direction: column;
                 margin-bottom: 1em;
                 min-height: 10em;
-                background: url('/static/img/spiner.gif') center / 64px no-repeat;
+                background: url("/static/img/spiner.gif") center / 64px no-repeat;
                 &::after {
-                    content: '';
+                    content: "";
                     width: 100%;
                     background: $text;
-                    height: .2em;
+                    height: 0.2em;
                 }
                 img {
                     max-width: 100%;
@@ -79,7 +79,7 @@
             }
             &__content {
                 width: 100%;
-                padding: .5em;
+                padding: 0.5em;
                 font-size: 1.5em;
             }
             &__title,
@@ -113,7 +113,7 @@
                 margin: 0.3em;
                 display: block;
                 &::before {
-                    content: '#';
+                    content: "#";
                 }
             }
             &__line {
@@ -123,10 +123,10 @@
                 flex-direction: column;
                 margin-bottom: 1em;
                 &::after {
-                    content: '';
+                    content: "";
                     width: 100%;
                     background: $text;
-                    height: .1em;
+                    height: 0.1em;
                 }
                 &.none {
                     &::after {
@@ -191,7 +191,7 @@
             padding: 0.5em;
             width: 10em;
             background-color: $dark2;
-            border-radius: .3em;
+            border-radius: 0.3em;
             margin: 0.3em;
             font-size: 2em;
             transition: all 0.3s ease 0s;
@@ -236,7 +236,7 @@
                 padding: 0.5em;
                 width: 10em;
                 background-color: $dark3;
-                border-radius: .3em;
+                border-radius: 0.3em;
                 margin: 0.3em;
                 transition: all 0.3s ease 0s;
                 cursor: pointer;
@@ -268,7 +268,7 @@
         animation-name: showCookie;
         animation-timing-function: ease-out;
         animation-duration: 2s;
-        animation-delay: .3s;
+        animation-delay: 0.3s;
         animation-fill-mode: forwards;
         @keyframes showCookie {
             0% {
@@ -327,7 +327,7 @@
             margin-bottom: 1em;
             &-title,
             &-link {
-                transition: all .3s ease 0s;
+                transition: all 0.3s ease 0s;
                 margin-right: 0.7em;
                 padding: 0.1em;
                 padding-left: 0;
@@ -359,13 +359,13 @@
             align-items: flex-end;
             transition: all 0.3s ease 0s;
             &::after {
-                content: '';
+                content: "";
                 width: 100%;
                 background-color: $text;
-                height: .05em;
-                margin-top: .3em;
+                height: 0.05em;
+                margin-top: 0.3em;
                 transition: all 0.3s ease 0s;
-                margin-bottom: .5em;
+                margin-bottom: 0.5em;
             }
             &:hover {
                 color: $redLight;
@@ -384,7 +384,7 @@
         &__pub-date,
         &__pub-user,
         &__likes {
-            margin-bottom: .3em;
+            margin-bottom: 0.3em;
             display: flex;
             justify-content: flex-end;
         }
@@ -407,7 +407,7 @@
             display: block;
             font-size: 1.2em;
             &::before {
-                content: '#';
+                content: "#";
             }
             &:hover {
                 color: $red;
@@ -447,7 +447,7 @@
                     .count,
                     i {
                         filter: contrast(100%);
-                        transform: scale(.9);
+                        transform: scale(0.9);
                     }
                 }
                 &.active {
@@ -461,17 +461,17 @@
         &__title {
             font-size: 3em;
             font-weight: bold;
-            margin-bottom: .7em;
+            margin-bottom: 0.7em;
             margin-top: 2em;
             display: flex;
             flex-direction: column;
             transition: all 0.3s ease 0s;
             &::after {
-                content: '';
+                content: "";
                 width: 100%;
                 background-color: $text;
-                height: .05em;
-                margin-top: .3em;
+                height: 0.05em;
+                margin-top: 0.3em;
                 transition: all 0.3s ease 0s;
             }
             &:hover {
@@ -502,8 +502,8 @@
                 width: 100%;
                 font-size: 2em;
                 margin-bottom: 0.3em;
-                padding: .5em;
-                border-radius: .1em;
+                padding: 0.5em;
+                border-radius: 0.1em;
                 transition: all 0.3s ease 0s;
                 &:focus {
                     color: $light1;
@@ -525,7 +525,7 @@
                     background-color: $dark1;
                     transition: all 0.3s ease 0s;
                     user-select: none;
-                    border-radius: .1em;
+                    border-radius: 0.1em;
                     cursor: pointer;
                     &:hover {
                         filter: contrast(90%);
@@ -551,7 +551,7 @@
                 font-size: 1.8em;
             }
             &-date {
-                font-size: .7em;
+                font-size: 0.7em;
                 text-decoration: underline;
             }
             &-user {
@@ -598,12 +598,12 @@
             }
             &-main {
                 font-size: 1.5em;
-                margin-bottom: .5em;
+                margin-bottom: 0.5em;
                 display: flex;
                 flex-direction: column;
                 transition: all 0.3s ease 0s;
                 &::after {
-                    content: '';
+                    content: "";
                     height: 0.05em;
                     width: 100%;
                     background-color: $text;
@@ -622,7 +622,7 @@
             background-color: $dark2;
             font-size: 1em;
             margin-bottom: 0.5em;
-            border-radius: .1em;
+            border-radius: 0.1em;
             &:focus {
                 color: $light1;
             }
@@ -632,7 +632,7 @@
             display: inline-block;
             padding: 0.5em;
             font-size: 1em;
-            border-radius: .1em;
+            border-radius: 0.1em;
             transition: all 0.3s ease 0s;
             cursor: pointer;
             margin-bottom: 1em;
@@ -641,7 +641,7 @@
                 color: $red;
             }
             &:active {
-                transform: scale(.9);
+                transform: scale(0.9);
             }
         }
         &__submit {
@@ -653,7 +653,7 @@
             filter: brightness(80%);
             display: inline-block;
             padding: 0.5em;
-            border-radius: .1em;
+            border-radius: 0.1em;
             &.none {
                 display: none;
             }
@@ -663,7 +663,7 @@
             a {
                 color: $text;
                 margin-right: 1em;
-                border-radius: .1em;
+                border-radius: 0.1em;
                 transition: all 0.3s ease 0s;
                 font-size: 0.8em;
                 cursor: pointer;
@@ -673,7 +673,7 @@
                     color: $red;
                 }
                 &:active {
-                    transform: scale(.9);
+                    transform: scale(0.9);
                 }
             }
         }
@@ -692,14 +692,14 @@
             justify-content: stretch;
             padding: 1em 0;
             &.line::after {
-                content: '';
+                content: "";
                 width: 100%;
                 background-color: $dark2;
-                height: .1em;
+                height: 0.1em;
                 transition: all 1s ease 0s;
             }
             &::before {
-                content: '';
+                content: "";
                 width: 1em;
                 height: 6em;
                 background-color: $redLight;
@@ -708,7 +708,7 @@
                 transform: translate(0, -2em);
                 transition: all 1s ease 0s;
                 opacity: 0;
-                border-radius: .3em 0 0 0;
+                border-radius: 0.3em 0 0 0;
             }
             &.avatar::before {
                 display: none;
@@ -786,19 +786,19 @@
             font-size: 2.5em;
             text-transform: lowercase;
             &::before {
-                content: '@';
+                content: "@";
             }
         }
         &__link {
             width: 100%;
-            padding: .5em 0;
+            padding: 0.5em 0;
             padding-left: 1em;
             font-size: 2em;
             color: $text;
             transition: all 1s ease 0s;
         }
         &__title {
-            font-size: 2em;
+            font-size: 4em;
             font-weight: bold;
         }
         &__container {
@@ -807,6 +807,83 @@
             flex-direction: column;
             align-items: center;
         }
-        @media (max-width: 767px) {}
+        @media (max-width: 767px) {
+        }
+    }
+    .profile-view {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        &__btn {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            a {
+                margin-top: 30px;
+                color: $text;
+                user-select: none;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 0.5em;
+                width: 10em;
+                background-color: $dark2;
+                border-radius: 0.3em;
+                font-size: 2em;
+                transition: all 0.3s ease 0s;
+                cursor: pointer;
+                &:hover {
+                    transform: scale(1.1);
+                    color: $red;
+                }
+                &:active {
+                    transform: scale(1.05);
+                    color: $redLight;
+                }
+            }
+        }
+        &__username {
+            margin-top: 20px;
+            font-size: 3em;
+        }
+        &__email {
+            margin-top: 20px;
+            font-size: 3em;
+        }
+        &__join-date {
+            margin-top: 20px;
+            font-size: 3em;
+        }
+    }
+    .profile-edit {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        &__form {
+            width: 90%;
+            margin-bottom: 1em;
+            * {
+                font-size: 1.3em;
+            }
+            &__input-email {
+                width: 70%;
+                background: none;
+                background-color: $dark2;
+                font-size: 2em;
+                margin-bottom: 0.3em;
+                padding: 0.5em;
+                border-radius: 0.1em;
+                transition: all 0.3s ease 0s;
+                &:focus {
+                    color: $light1;
+                }
+            }
+        }
+        label {
+            font-size: 3em;
+        }
     }
 }

@@ -1,4 +1,16 @@
 <div class="card">
-    <h1> {{request.user.UserName}}</h1>
-    <h1>Turtle Boi</h1>
+    <div class="profile-view">
+        <h1 class="profile-view__username">Username: {{request.user.UserName}}</h1>
+    </div>
+    <div class="profile-view">
+        <h1 class="profile-view__email">Email: {{request.user.Email}}</h1>
+    </div>
+    <div class="profile-view">
+        <h1 class="profile-view__join-date">Join date: {{request.user.JoinDate}}</h1>
+    </div>
+    <div class="profile-view">
+        <div class="profile-view__btn">
+            <a href="{%url 'profile_edit'%}" >Edit profile</a>
+        </div>
+    </div>
 </div>

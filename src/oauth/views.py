@@ -84,6 +84,13 @@ def profile_edit(request):
     }
     return render(request, 'front/profile.html', dict)
 
+@login_required
+def profile_password(request):
+    dict = {
+        'profile_if': 'password',
+    }
+    return render(request, 'front/profile.html', dict)
+
 
 @login_required
 def profile_notifications(request):

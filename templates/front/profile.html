@@ -20,6 +20,9 @@
                 <a href="{%url 'profile_edit'%}" class="profile__link ">Edit profile</a>
             </div>
             <div class="profile__row line ">
+                <a href="{%url 'profile_password'%}" class="profile__link ">Change password</a>
+            </div>
+            <div class="profile__row line ">
                 <a href="{%url 'profile_notifications'%}" class="profile__link ">Notification settings</a>
             </div>
             <div class="profile__row line ">
@@ -41,6 +44,12 @@
             {%endif%} {%if 'edit' in profile_if%}
             <div class="profile__container">
                 <div class="profile__title">Edit profile</div>
+            </div>
+            {% include 'profile/edit.html'%}
+            {%endif%}
+            {%if 'password' in profile_if%}
+            <div class="profile__container">
+                <div class="profile__title">Change password</div>
             </div>
             {%endif%} {%if 'notifications' in profile_if%}
             <div class="profile__container">
