@@ -13,9 +13,11 @@ def start_parser(request):
     multipage = '#dieselReactWrapper > div > div > main > div > div > div > div > div > section > div > div > div > section > div > section > nav > ul > li:last-child > a'
 
     subpage_selectors = {
-        'title_selector': 'div > div > main > div > div > div > div > div > div > div > div > h1 > div > span',
-        'text_selector': 'div > div > div > div > div > div> div > div > div > div > div > div > div > span',
-        'img_selector': 'div > div > main > div > div > div > div > div > div > div > div > div > div > div > div > ul > li > div > div > div > div > img'
+        'Title_selector': 'div > div > main > div > div > div > div > div > div > div > div > h1 > div > span',
+        'Description_selector': 'div > div > main > div > div > div > div > div > div > div > div > div > div > div > div > span',
+        'Reliase_date_selector': 'div > div > main > div > div > div > div > div > div > div > aside > div > div > div > div > div > div > div > span > time',
+        'Tags_selector':'div > div > main > div > div > div > div > div > div > div > div > div:nth-child(2) > div > div > div > div > div:nth-child(1) > div > div > ul > li',
+        'img_selector': 'div > div > main > div > div > div > div > div > div > div > aside > div > div > div > div > div > div > div > div > div > img',
     }
 
     p = Parser(url,

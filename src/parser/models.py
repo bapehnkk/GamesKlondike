@@ -60,12 +60,14 @@ class Page:
     """ Содержит элементы и ошибки с проппаршеной странцы
     """
     __slots__ = ('_Page__error', '_Page__url',
-                 '_Page__soup', '_Page__selectors', '_Page__all_tags')
+                 '_Page__soup', '_Page__selectors',
+                 '_Page__all_tags', '_Page__subpage_selectors')
 
-    def __init__(self, url, soup, selectors=None):
+    def __init__(self, url, soup, selectors=None, subpage_selectors=False):
         self.__error = ''
         self.__url = ''
         self.__selectors = selectors
+        self.__subpage_selectors = subpage_selectors
         self.__soup = soup
         self.__all_tags = tuple([])
         if isinstance(url, (str)):
@@ -98,13 +100,41 @@ class Page:
             }])
             print(f'\r\n END: {self.__error}\r\n')
         else:
-            self.__all_tags = list(filter(None, self.__soup))
-            # print(self.__elements)
-            self.__all_tags = tuple([{
-                'selector': selector,
-                'tags': [self.__create_HtmlItem(item=tag)
-                         for tag in list(dict.fromkeys(self.__soup.select(selector)))]
-            } for selector in self.__selectors])
+            if self.__subpage_selectors:
+                """ Если парсится подстраница:
+                """
+                try:
+                    self.__all_tags = {
+                        'Title': self.__soup.select(
+                            self.__selectors['Title_selector'])[0].text.strip()
+                        if len(self.__soup.select(self.__selectors['Title_selector'])) > 0
+                        else None,
+
+                        'Description': self.__soup.select(
+                            self.__selectors['Description_selector'])[0].text.strip()
+                        if len(self.__soup.select(self.__selectors['Description_selector'])) > 0
+                        else None,
+
+                        'Reliase date': self.__soup.select(self.__selectors['Reliase_date_selector'])[0].text.strip()
+                        if len(self.__soup.select(self.__selectors['Reliase_date_selector'])) > 0
+                        else None,
+
+                        'Tags':  [tag.text.strip()
+                                  for tag in self.__soup.select(self.__selectors['Tags_selector'])],
+                        'Images': [tag['src']
+                                   for tag in self.__soup.select(self.__selectors['img_selector'])],
+                    }
+                except Exception as ex:
+                    print(f'Exception: {ex}')
+                print(f'aaaaaaaaaaaaaaaaaaaaaa\r\n{self.__all_tags}\r\n')
+            else:
+                self.__all_tags = list(filter(None, self.__soup))
+                # print(self.__elements)
+                self.__all_tags = tuple([{
+                    'selector': selector,
+                    'tags': [self.__create_HtmlItem(item=tag)
+                             for tag in list(dict.fromkeys(self.__soup.select(selector)))]
+                } for selector in self.__selectors])
 
     def print_error(self):
         print(self.__error)
@@ -172,7 +202,7 @@ class Parser:
 
         if self.__multipage == '' or not isinstance(self.__multipage, str):
             self.__multipage = None
-        
+
         self.__subpage_selectors = subpage_selectors
 
     def check_site(self, site_name):
@@ -300,7 +330,7 @@ class Parser:
         """ Парсинг подстраниц 
         """
         self.__pages = []
-        self.__subpage_selectors = [value for key, value in self.__subpage_selectors.items()]
+        # self.__subpage_selectors = [value for key, value in self.__subpage_selectors.items()]
         self.subpage_urls = [
             urljoin(self.__site_url, url) for url in self.subpage_urls]  # Складываем адреса, чтобы полуить полные
 
@@ -313,7 +343,8 @@ class Parser:
                 p = Page(
                     url=url,
                     soup=soup,
-                    selectors=self.__subpage_selectors
+                    selectors=self.__subpage_selectors,
+                    subpage_selectors=True
                 )
                 self.__pages.append(p)
                 print(p.get_dict())
@@ -326,6 +357,6 @@ class Parser:
     def parser(self):
         """ Когда точно нет коллизии
         """
-        self.parse()    # взять все url пути на посты 
+        self.parse()    # взять все url пути на посты
         ret_json = self.parse_subpages()    # запарсить посты
         return ret_json
