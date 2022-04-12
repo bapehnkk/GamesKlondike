@@ -1,13 +1,11 @@
 <div class="profile-edit">
     <form class="post__comment-form" action="" method="post">
         <label class="profile-edit__label" for="newComment">Username:</label>
-        <input type="text" name="newComment" class="input-text" />
+        <input type="text" name="userName" class="input-text" />
         <label class="profile-edit__label" for="newComment">Email:</label>
-        <input type="text" name="newComment" class="input-text" />
+        <input type="text" name="email" class="input-text" />
     </form>
-    <div class="profile-view">
-        <div class="profile-view__btn">
-            <a href="{%url 'profile_password'%}" >Change password</a>
-        </div>
+    <div class="profile-view__btn">
+        <a href="{%url 'profile_password'%}" >Change password</a>
     </div>
 </div>
