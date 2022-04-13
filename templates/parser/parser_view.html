@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="{% static 'main.css' %}"> {% endblock %} {% block header %}{%include 'header.html'%}{% endblock %} {% block main %}
 <div class="main">
 
-    <!-- <form action="{% url 'parser_start' %}" method="post" class="auth">
+    <!-- <form action="" method="post" class="auth">
         {% csrf_token %}
 
         <div class="auth__container">
@@ -72,49 +72,14 @@
         <div class="row">
             <div class="parser__title-sub"><i class="fa-light fa-square mr-3"></i>{{objects.SiteName}}</div>
             <div id="{{objects.id}}" class="parser__btns">
-                <a href="#" class="parser__btn hidden none"><i class="fa-light fa-trash mr-3"></i>Delete</a>
-                <a href="#" class="parser__btn hidden none"><i class="fa-light fa-wrench mr-3"></i>Change</a>
-                <a href="#" class="parser__btn hidden none"><i class="fa-light fa-eye mr-3"></i>Watch JSON</a>
-                <a href="#" class="parser__btn hidden none"><i class="fa-light fa-play mr-3"></i>Start</a>
+                <a href="/admin/parser/" class="parser__btn hidden none"><i class="fa-light fa-trash mr-3"></i>Delete</a>
+                <a href="/admin/parser/" class="parser__btn hidden none"><i class="fa-light fa-wrench mr-3"></i>Change</a>
+                <a href="{% url 'watch_JSON' objects.id %}" class="parser__btn hidden none" target="__blank"><i class="fa-light fa-eye mr-3"></i>Watch JSON</a>
+                <a href="{% url 'parser_start' objects.id %}" class="parser__btn hidden none"><i class="fa-light fa-play mr-3"></i>Start</a>
                 <div class="parser__btn show"><i class="fa-light fa-grid"></i></div>
                 <!-- <div class="parser__btn "><i class="fa-light fa-plus"></i>Show</div> -->
             </div>
         </div>{%endfor%}
-        <div class="row">
-            <div class="parser__title-sub"><i class="fa-light fa-square mr-3"></i>Steam</div>
-            <div id="1" class="parser__btns">
-                <a href="#" class="parser__btn hidden none"><i class="fa-light fa-trash mr-3"></i>Delete</a>
-                <a href="#" class="parser__btn hidden none"><i class="fa-light fa-wrench mr-3"></i>Change</a>
-                <a href="#" class="parser__btn hidden none"><i class="fa-light fa-eye mr-3"></i>Watch JSON</a>
-                <a href="#" class="parser__btn hidden none"><i class="fa-light fa-play mr-3"></i>Start</a>
-                <div class="parser__btn show"><i class="fa-light fa-grid"></i></div>
-                <!-- <div class="parser__btn "><i class="fa-light fa-plus"></i>Show</div> -->
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="parser__title-sub"><i class="fa-light fa-square mr-3"></i>Ubisoft</div>
-            <div id="3" class="parser__btns">
-                <a href="#" class="parser__btn hidden none"><i class="fa-light fa-trash mr-3"></i>Delete</a>
-                <a href="#" class="parser__btn hidden none"><i class="fa-light fa-wrench mr-3"></i>Change</a>
-                <a href="#" class="parser__btn hidden none"><i class="fa-light fa-eye mr-3"></i>Watch JSON</a>
-                <a href="#" class="parser__btn hidden none"><i class="fa-light fa-play mr-3"></i>Start</a>
-                <div class="parser__btn show"><i class="fa-light fa-grid"></i></div>
-                <!-- <div class="parser__btn "><i class="fa-light fa-plus"></i>Show</div> -->
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="parser__title-sub"><i class="fa-light fa-square mr-3"></i>Sony</div>
-            <div id="4" class="parser__btns">
-                <a href="#" class="parser__btn hidden none"><i class="fa-light fa-trash mr-3"></i>Delete</a>
-                <a href="#" class="parser__btn hidden none"><i class="fa-light fa-wrench mr-3"></i>Change</a>
-                <a href="#" class="parser__btn hidden none"><i class="fa-light fa-eye mr-3"></i>Watch JSON</a>
-                <a href="#" class="parser__btn hidden none"><i class="fa-light fa-play mr-3"></i>Start</a>
-                <div class="parser__btn show"><i class="fa-light fa-grid"></i></div>
-                <!-- <div class="parser__btn "><i class="fa-light fa-plus"></i>Show</div> -->
-            </div>
-        </div>
         <div class="parser__btn-start">
             <div>
                 <i class="fa-light fa-play mr-3"></i>Start selected

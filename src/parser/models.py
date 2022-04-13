@@ -7,6 +7,7 @@ import json
 
 from src.posts.models import PostGame
 
+# import jsonfield
 
 class ParseUrl(models.Model):
     """ Класс содержит в себе сайты и их селекторы, по которым надо пропарсить сайт.
@@ -14,8 +15,9 @@ class ParseUrl(models.Model):
     """
     SiteName = models.CharField(max_length=255, unique=True)
     SiteURL = models.URLField()
-    SubPageURL = models.CharField(max_length=255)
+    SubPageURL = models.CharField(max_length=255,null=True)
     NextPageUrl = models.CharField(max_length=255,blank=True, null=True)
+    JSON = models.JSONField(blank=True,null=True)
 
     class Meta:
         verbose_name = 'Parse URL'
@@ -356,7 +358,7 @@ class Parser:
                     self.__error = str(f'Exception: {self.__req}')
             except Exception as ex:
                 print(ex)
-        return self.get_JSON(sort_keys=True, indent=4)
+        return self.get_JSON()
 
     def parser(self):
         """ Когда точно нет коллизии

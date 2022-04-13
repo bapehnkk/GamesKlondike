@@ -23,6 +23,7 @@ urlpatterns = [
     path('profile/bookmark', views_oauth.profile_bookmark, name='profile_bookmark'), 
 
     path('parser/', p_v.ParserView.as_view(), name='parser'), 
-    path('parser/start', p_v.ParserView.as_view(), name='parser_start'), 
+    path('parser/watch_JSON/<int:pk>', p_v.ParserJSON.as_view(), name='watch_JSON'), 
+    path('parser/start/<int:pk>', p_v.ParserStart.as_view(), name='parser_start'), 
     # path('parser/start', p_v.ParserView.as_view(), name=''), 
 ]
