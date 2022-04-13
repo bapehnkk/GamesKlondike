@@ -14,8 +14,8 @@ class ParseUrl(models.Model):
     """
     SiteName = models.CharField(max_length=255, unique=True)
     SiteURL = models.URLField()
-    SubPageURL = models.URLField(blank=True, null=True)
-    NextPageUrl = models.URLField(blank=True, null=True)
+    SubPageURL = models.CharField(max_length=255)
+    NextPageUrl = models.CharField(max_length=255,blank=True, null=True)
 
     class Meta:
         verbose_name = 'Parse URL'
@@ -124,9 +124,13 @@ class Page:
                         'Images': [tag['src']
                                    for tag in self.__soup.select(self.__selectors['img_selector'])],
                     }
+                    print(self.__soup.select(
+                            self.__selectors['Title_selector'])[0].text.strip()
+                        if len(self.__soup.select(self.__selectors['Title_selector'])) > 0
+                        else None)
                 except Exception as ex:
                     print(f'Exception: {ex}')
-                print(f'aaaaaaaaaaaaaaaaaaaaaa\r\n{self.__all_tags}\r\n')
+                # print(f'aaaaaaaaaaaaaaaaaaaaaa\r\n{self.__all_tags}\r\n')
             else:
                 self.__all_tags = list(filter(None, self.__soup))
                 # print(self.__elements)
@@ -334,24 +338,24 @@ class Parser:
         self.subpage_urls = [
             urljoin(self.__site_url, url) for url in self.subpage_urls]  # Складываем адреса, чтобы полуить полные
 
-        # for url in self.subpage_urls:
-        url = self.subpage_urls[0]
-        self.__get_request(url)
-        try:
-            if self.__req.status_code == 200:
-                soup = BeautifulSoup(self.__req.text, 'html.parser')
-                p = Page(
-                    url=url,
-                    soup=soup,
-                    selectors=self.__subpage_selectors,
-                    subpage_selectors=True
-                )
-                self.__pages.append(p)
-                print(p.get_dict())
-            else:
-                self.__error = str(f'Exception: {self.__req}')
-        except Exception as ex:
-            print(ex)
+        for url in self.subpage_urls:
+            # url = self.subpage_urls[0]
+            self.__get_request(url)
+            try:
+                if self.__req.status_code == 200:
+                    soup = BeautifulSoup(self.__req.text, 'html.parser')
+                    p = Page(
+                        url=url,
+                        soup=soup,
+                        selectors=self.__subpage_selectors,
+                        subpage_selectors=True
+                    )
+                    self.__pages.append(p)
+                    # print(p.get_dict())
+                else:
+                    self.__error = str(f'Exception: {self.__req}')
+            except Exception as ex:
+                print(ex)
         return self.get_JSON(sort_keys=True, indent=4)
 
     def parser(self):

@@ -1,0 +1,195 @@
+{% extends 'layout.html' %} {% load static %} {% block lang %}ru{% endblock %} {% block title %}Home{% endblock %} {%block addictionsBefore %}
+<link rel="stylesheet" href="{% static 'icons.css' %}">
+<link rel="stylesheet" href="{% static 'main.css' %}"> {% endblock %} {% block header %}{%include 'header.html'%}{% endblock %} {% block main %}
+<div class="main">
+
+    <!-- <form action="{% url 'parser_start' %}" method="post" class="auth">
+        {% csrf_token %}
+
+        <div class="auth__container">
+            <div class="auth__title-main">SingIn</div>
+
+            {%if errors%}
+            <div class="auth__error">{{errors}}</div>{%endif%}
+
+            <div class="auth__title">SiteName</div>
+            <input type="text" name="SiteName" placeholder="Steam, EpicGames..." required>
+
+            <div class="auth__title">SiteURL</div>
+            <input type="url" name="SiteURL" placeholder="https://example.com" required>
+
+            <div class="auth__title">SubPageURL</div>
+            <input type="text" name="SubPageURL" placeholder="div > a.game" required>
+
+            <div class="auth__title">NextPageUrl</div>
+            <input type="text" name="NextPageUrl" placeholder="div > a.next-page">
+
+            <div class="auth__btn">Parse</div>
+            <input class="auth__submit" type="submit" value="" />
+
+
+        </div>
+    </form> -->
+
+    <!-- <div class="parser-urls">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>SiteName</th>
+                    <th>SiteURL</th>
+                    <th>SubPageURL</th>
+                    <th>NextPageUrl</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for objects in ParseUrl%}
+                <tr>
+                    <td>{{objects.id}}</td>
+                    <td>{{objects.SiteName}}</td>
+                    <td>{{objects.SiteURL}}</td>
+                    <td>{{objects.SubPageURL}}</td>
+                    <td>{{objects.NextPageUrl}}</td>
+                </tr>
+                <tr>
+                    <td>{{objects.id}}</td>
+                    <td>{{objects.SiteName}}</td>
+                    <td>{{objects.SiteURL}}</td>
+                    <td>{{objects.SubPageURL}}</td>
+                    <td>{{objects.NextPageUrl}}</td>
+                </tr>{%endfor%}
+            </tbody>
+        </table>
+    </div> -->
+
+    <div class="parser">
+        <div class="parser__title">Parsers</div>
+        <div class="select-all">
+            Select All
+            <i class="fa-light fa-square mr-3 select-all-i"></i>
+        </div>
+        {% for objects in ParseUrl%}
+        <div class="row">
+            <div class="parser__title-sub"><i class="fa-light fa-square mr-3"></i>{{objects.SiteName}}</div>
+            <div id="{{objects.id}}" class="parser__btns">
+                <a href="#" class="parser__btn hidden none"><i class="fa-light fa-trash mr-3"></i>Delete</a>
+                <a href="#" class="parser__btn hidden none"><i class="fa-light fa-wrench mr-3"></i>Change</a>
+                <a href="#" class="parser__btn hidden none"><i class="fa-light fa-eye mr-3"></i>Watch JSON</a>
+                <a href="#" class="parser__btn hidden none"><i class="fa-light fa-play mr-3"></i>Start</a>
+                <div class="parser__btn show"><i class="fa-light fa-grid"></i></div>
+                <!-- <div class="parser__btn "><i class="fa-light fa-plus"></i>Show</div> -->
+            </div>
+        </div>{%endfor%}
+        <div class="row">
+            <div class="parser__title-sub"><i class="fa-light fa-square mr-3"></i>Steam</div>
+            <div id="1" class="parser__btns">
+                <a href="#" class="parser__btn hidden none"><i class="fa-light fa-trash mr-3"></i>Delete</a>
+                <a href="#" class="parser__btn hidden none"><i class="fa-light fa-wrench mr-3"></i>Change</a>
+                <a href="#" class="parser__btn hidden none"><i class="fa-light fa-eye mr-3"></i>Watch JSON</a>
+                <a href="#" class="parser__btn hidden none"><i class="fa-light fa-play mr-3"></i>Start</a>
+                <div class="parser__btn show"><i class="fa-light fa-grid"></i></div>
+                <!-- <div class="parser__btn "><i class="fa-light fa-plus"></i>Show</div> -->
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="parser__title-sub"><i class="fa-light fa-square mr-3"></i>Ubisoft</div>
+            <div id="3" class="parser__btns">
+                <a href="#" class="parser__btn hidden none"><i class="fa-light fa-trash mr-3"></i>Delete</a>
+                <a href="#" class="parser__btn hidden none"><i class="fa-light fa-wrench mr-3"></i>Change</a>
+                <a href="#" class="parser__btn hidden none"><i class="fa-light fa-eye mr-3"></i>Watch JSON</a>
+                <a href="#" class="parser__btn hidden none"><i class="fa-light fa-play mr-3"></i>Start</a>
+                <div class="parser__btn show"><i class="fa-light fa-grid"></i></div>
+                <!-- <div class="parser__btn "><i class="fa-light fa-plus"></i>Show</div> -->
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="parser__title-sub"><i class="fa-light fa-square mr-3"></i>Sony</div>
+            <div id="4" class="parser__btns">
+                <a href="#" class="parser__btn hidden none"><i class="fa-light fa-trash mr-3"></i>Delete</a>
+                <a href="#" class="parser__btn hidden none"><i class="fa-light fa-wrench mr-3"></i>Change</a>
+                <a href="#" class="parser__btn hidden none"><i class="fa-light fa-eye mr-3"></i>Watch JSON</a>
+                <a href="#" class="parser__btn hidden none"><i class="fa-light fa-play mr-3"></i>Start</a>
+                <div class="parser__btn show"><i class="fa-light fa-grid"></i></div>
+                <!-- <div class="parser__btn "><i class="fa-light fa-plus"></i>Show</div> -->
+            </div>
+        </div>
+        <div class="parser__btn-start">
+            <div>
+                <i class="fa-light fa-play mr-3"></i>Start selected
+            </div>
+        </div>
+
+        <script>
+            // Работа раскрывающейся менюшки
+            document.querySelectorAll('.parser__btn.show').forEach(
+                (row) => {
+                    let parentID = row.parentNode.getAttribute('id');
+                    row.addEventListener(
+                        'click',
+                        () => {
+                            document.querySelectorAll('.parser__btn').forEach(
+                                (element) => {
+
+                                    if (element.parentNode.getAttribute('id') == parentID &&
+                                        !element.classList.contains('show')) {
+                                        if (element.classList.contains('hidden') || element.classList.contains('none')) {
+                                            element.classList.toggle('none');
+                                            setTimeout(() => {
+                                                element.classList.toggle('hidden');
+                                            }, 100);
+                                        } else {
+                                            element.classList.toggle('hidden');
+                                            setTimeout(() => {
+                                                element.classList.toggle('none');
+                                            }, 100);
+                                        }
+                                    }
+                                });
+                        }
+                    );
+                }
+            );
+            // Работа чекбоксов 
+            document.querySelectorAll('.row .fa-square').forEach(
+                (checkBox) => {
+                    checkBox.addEventListener('click', () => {
+                        checkBox.classList.toggle('fa-square');
+                        checkBox.classList.toggle('fa-square-check');
+                    })
+                }
+            );
+
+            // Выбрать все чекбоксы 
+            document.querySelector('.select-all-i').addEventListener('click', () => {
+                if (document.querySelector('.select-all-i').classList.contains('fa-square')) {
+                    document.querySelectorAll('.fa-square').forEach(
+                        (checkBox) => {
+                            checkBox.classList.add('fa-square-check');
+                            checkBox.classList.remove('fa-square');
+                        });
+                } else {
+                    document.querySelectorAll('.fa-square-check').forEach(
+                        (checkBox) => {
+                            checkBox.classList.remove('fa-square-check');
+                            checkBox.classList.add('fa-square');
+                        });
+                }
+
+            });
+        </script>
+    </div>
+
+    <div class="parser-json">
+        {{parser_json}}
+    </div>
+</div>
+
+<!-- <script>
+    document.querySelector('.auth__btn').addEventListener('click', () => {
+        document.querySelector('.auth__submit').click();
+    });
+</script> -->
+
+{% endblock %} {% block footer %}{% endblock %} {% block addictionsAfter %} {% endblock %}

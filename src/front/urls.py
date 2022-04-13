@@ -3,7 +3,7 @@ from django.urls import path
 
 from src.posts import views as views_posts
 from src.oauth import views as views_oauth
-from src.parser import parser as p
+from src.parser import parser_view as p_v
 
 urlpatterns = [
     path('', views_posts.home, name='home'),
@@ -22,5 +22,7 @@ urlpatterns = [
     path('profile/privacy', views_oauth.profile_privacy, name='profile_privacy'), 
     path('profile/bookmark', views_oauth.profile_bookmark, name='profile_bookmark'), 
 
-    path('start_parser/', p.start_parser, name='start_parser'), 
+    path('parser/', p_v.ParserView.as_view(), name='parser'), 
+    path('parser/start', p_v.ParserView.as_view(), name='parser_start'), 
+    # path('parser/start', p_v.ParserView.as_view(), name=''), 
 ]
