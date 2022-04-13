@@ -51,14 +51,17 @@
             <div class="profile__container">
                 <div class="profile__title">Change password</div>
             </div>
+            {% include 'profile/password.html'%}
             {%endif%} {%if 'notifications' in profile_if%}
             <div class="profile__container">
                 <div class="profile__title">Notifications</div>
             </div>
-            НАПОЛНЕНИЕ {%endif%} {%if 'privacy' in profile_if%}
+            {% include 'profile/notifications.html'%}
+            {%endif%} {%if 'privacy' in profile_if%}
             <div class="profile__container">
                 <div class="profile__title">Privacy settings</div>
             </div>
+            {% include 'profile/privacy.html'%}
             {%endif%} {%if 'bookmark' in profile_if%}
             <div class="profile__container ">
                 <div class="profile__title ">Bookmarks</div>
